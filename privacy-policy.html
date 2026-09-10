@@ -11,14 +11,41 @@
 </head>
 <body>
 
-<nav class="legal-nav" aria-label="Primary">
-  <div class="legal-nav__inner">
-    <a href="./index.html" aria-label="Pigeon Hill Advisory — home" class="site-nav__logo" style="display:block;border:0;line-height:0">
-      <img src="./assets/img/logo-PGA-black-on-white.png" alt="Pigeon Hill Advisory" style="height:54px;width:auto">
+<nav class="site-nav" aria-label="Primary" data-nav>
+  <div class="site-nav__inner">
+    <a href="./index.html" class="site-nav__logo" aria-label="Pigeon Hill Advisory — home">
+      <img data-nav-logo
+           src="./assets/img/logo-horizontal-reversed.png"
+           data-src-reversed="./assets/img/logo-horizontal-reversed.png"
+           data-src-gold="./assets/img/logo-PGA-black-on-white.png"
+           alt="Pigeon Hill Advisory">
     </a>
-    <a href="./index.html#contact" style="font:var(--type-body-sm);color:var(--text-body);text-decoration:none;border-bottom:0">Contact</a>
+
+    <div class="site-nav__links">
+      <a href="./index.html#about" class="site-nav__link">About Michael Shelton-Agar</a>
+      <a href="./index.html#expertise" class="site-nav__link">Expertise</a>
+      <a href="./index.html#approach" class="site-nav__link">Approach</a>
+      <a href="./index.html#perspectives" class="site-nav__link">Perspectives</a>
+      <a href="./index.html#contact" class="btn btn--outline btn--sm">Contact</a>
+    </div>
+
+    <button type="button" class="btn btn--text btn--sm site-nav__menu-btn" data-menu-open aria-haspopup="dialog">Menu</button>
   </div>
 </nav>
+
+<div class="mobile-menu" role="dialog" aria-modal="true" aria-label="Site navigation" data-mobile-menu hidden>
+  <div class="mobile-menu__top">
+    <img src="./assets/img/logo-horizontal-reversed.png" alt="Pigeon Hill Advisory" style="height:36px;width:auto">
+    <button type="button" class="btn btn--text" data-menu-close>Close</button>
+  </div>
+  <div class="mobile-menu__links">
+    <a href="./index.html#about">About Michael Shelton-Agar</a>
+    <a href="./index.html#expertise">Expertise</a>
+    <a href="./index.html#approach">Approach</a>
+    <a href="./index.html#perspectives">Perspectives</a>
+    <a href="./index.html#contact" class="is-contact">Contact</a>
+  </div>
+</div>
 
 <main>
   <div class="legal-header">
