@@ -92,10 +92,18 @@
     var nextBtn = document.querySelector('[data-carousel-next]');
     var quoteIndex = 0;
     var raf = null;
+    var autoplayTimeout = null;
 
     var setActive = function (i) {
       quoteIndex = i;
       dots.forEach(function (d, di) { d.classList.toggle('is-active', di === i); });
+    };
+
+    var resetAutoplay = function () {
+      if (autoplayTimeout) clearTimeout(autoplayTimeout);
+      autoplayTimeout = setTimeout(function () {
+        goToQuote((quoteIndex + 1) % cards.length);
+      }, 5000);
     };
 
     var goToQuote = function (i) {
@@ -103,6 +111,7 @@
       setActive(i);
       var card = cards[i];
       if (card) carousel.scrollTo({ left: card.offsetLeft, behavior: reducedMotion ? 'auto' : 'smooth' });
+      resetAutoplay();
     };
 
     dots.forEach(function (dot, i) { dot.addEventListener('click', function () { goToQuote(i); }); });
@@ -128,6 +137,7 @@
     });
 
     setActive(0);
+    resetAutoplay();
   }
 
   /* ---------------- Contact form ---------------- */
