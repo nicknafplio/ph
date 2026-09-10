@@ -1,0 +1,212 @@
+@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Light.ttf") format("truetype");font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-LightItalic.ttf") format("truetype");font-weight:300;font-style:italic;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Italic.ttf") format("truetype");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Medium.ttf") format("truetype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-MediumItalic.ttf") format("truetype");font-weight:500;font-style:italic;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-SemiBold.ttf") format("truetype");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-SemiBoldItalic.ttf") format("truetype");font-weight:600;font-style:italic;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Bold.ttf") format("truetype");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-BoldItalic.ttf") format("truetype");font-weight:700;font-style:italic;font-display:swap}
+
+:root{
+/* ---- Brand core ---- */
+--ph-forest:#024f47;
+--ph-gold:#cfb378;
+--ph-ink:#3a3937;
+--ph-bone:#ede4d8;
+
+/* ---- Forest ramp ---- */
+--forest-900:#01251f;
+--forest-800:#013a34;
+--forest-700:#024f47;
+--forest-600:#0a6459;
+--forest-500:#1b7c6f;
+--forest-100:#d8e5e2;
+--forest-050:#eef4f2;
+
+/* ---- Gold ramp ---- */
+--gold-700:#9d7c40;
+--gold-600:#b9995a;
+--gold-500:#cfb378;
+--gold-400:#ddc79a;
+--gold-200:#eee0c4;
+--gold-100:#f7efdf;
+
+/* ---- Ink / neutral ramp ---- */
+--ink-900:#26251f;
+--ink-800:#3a3937;
+--ink-600:#5c5a56;
+--ink-500:#7b7873;
+--ink-400:#9d9a93;
+--ink-300:#c2beb6;
+
+/* ---- Bone / surface ramp ---- */
+--bone-500:#ddd1c1;
+--bone-400:#ede4d8;
+--bone-300:#f3ece3;
+--bone-200:#f8f4ee;
+--bone-100:#fcfaf7;
+--paper:#ffffff;
+
+/* ---- Semantic: surfaces ---- */
+--surface-page:var(--bone-200);
+--surface-card:var(--paper);
+--surface-raised:var(--bone-100);
+--surface-sunken:var(--bone-300);
+--surface-inverse:var(--forest-700);
+--surface-inverse-deep:var(--forest-900);
+--surface-accent:var(--gold-500);
+--surface-accent-soft:var(--gold-100);
+
+/* ---- Semantic: text ---- */
+--text-display:var(--forest-700);
+--text-heading:var(--ink-800);
+--text-body:var(--ink-800);
+--text-secondary:var(--ink-600);
+--text-muted:var(--ink-500);
+--text-on-inverse:var(--bone-400);
+--text-on-inverse-strong:#ffffff;
+--text-on-accent:var(--forest-900);
+--text-accent:var(--gold-700);
+--text-accent-on-inverse:var(--gold-500);
+--text-link:var(--forest-700);
+--text-link-hover:var(--gold-700);
+
+/* ---- Semantic: lines ---- */
+--rule-hairline:rgba(58,57,55,.18);
+--rule-strong:rgba(58,57,55,.38);
+--rule-on-inverse:rgba(237,228,216,.28);
+--rule-accent:var(--gold-500);
+--border-field:rgba(58,57,55,.28);
+--border-field-focus:var(--forest-700);
+
+/* ---- Semantic: states ---- */
+--state-hover-wash:rgba(2,79,71,.06);
+--state-press-wash:rgba(2,79,71,.12);
+--state-hover-wash-inverse:rgba(237,228,216,.10);
+--state-disabled-text:var(--ink-400);
+--focus-ring:var(--gold-500);
+
+/* ---- Semantic: status ---- */
+--status-positive:#3f6b52;
+--status-caution:#9d7c40;
+--status-critical:#8a3f38;
+--status-neutral:var(--ink-500);
+
+/* ---- Type families ---- */
+--font-display:"Cormorant Garamond","Cormorant",Garamond,"Times New Roman",serif;
+--font-body:"Times New Roman",Georgia,serif;
+--font-ui:"Times New Roman",Times,serif;
+--font-mono:"Courier New",Courier,monospace;
+
+/* ---- Weights ---- */
+--weight-light:300;
+--weight-regular:400;
+--weight-medium:500;
+--weight-semibold:600;
+--weight-bold:700;
+
+/* ---- Display scale ---- */
+--size-display-1:104px;
+--size-display-2:76px;
+--size-display-3:56px;
+--size-heading-1:40px;
+--size-heading-2:30px;
+--size-heading-3:24px;
+
+/* ---- Body scale ---- */
+--size-body-lg:20px;
+--size-body:17px;
+--size-body-sm:15px;
+--size-caption:13px;
+--size-eyebrow:12px;
+
+/* ---- Line heights ---- */
+--leading-display:1.06;
+--leading-heading:1.18;
+--leading-body:1.62;
+--leading-tight:1.35;
+
+/* ---- Tracking ---- */
+--tracking-display:-0.012em;
+--tracking-heading:0em;
+--tracking-body:0.004em;
+--tracking-eyebrow:0.28em;
+--tracking-wordmark:0.42em;
+
+/* ---- Composite type roles ---- */
+--type-display-1:var(--weight-light) var(--size-display-1)/var(--leading-display) var(--font-display);
+--type-display-2:var(--weight-light) var(--size-display-2)/var(--leading-display) var(--font-display);
+--type-display-3:var(--weight-regular) var(--size-display-3)/var(--leading-heading) var(--font-display);
+--type-heading-1:var(--weight-regular) var(--size-heading-1)/var(--leading-heading) var(--font-display);
+--type-heading-2:var(--weight-regular) var(--size-heading-2)/var(--leading-heading) var(--font-display);
+--type-heading-3:var(--weight-medium) var(--size-heading-3)/var(--leading-tight) var(--font-display);
+--type-body-lg:var(--weight-regular) var(--size-body-lg)/var(--leading-body) var(--font-body);
+--type-body:var(--weight-regular) var(--size-body)/var(--leading-body) var(--font-body);
+--type-body-sm:var(--weight-regular) var(--size-body-sm)/var(--leading-body) var(--font-body);
+--type-caption:var(--weight-regular) var(--size-caption)/var(--leading-tight) var(--font-body);
+
+/* ---- Spacing ---- */
+--space-0:0px;
+--space-1:4px;
+--space-2:8px;
+--space-3:12px;
+--space-4:16px;
+--space-5:24px;
+--space-6:32px;
+--space-7:48px;
+--space-8:64px;
+--space-9:96px;
+--space-10:128px;
+--space-11:176px;
+
+/* ---- Layout ---- */
+--measure-prose:58ch;
+--measure-narrow:44ch;
+--container-max:1240px;
+--container-text:820px;
+--gutter-page:56px;
+--gutter-page-sm:24px;
+--section-y:var(--space-10);
+--section-y-sm:var(--space-8);
+
+/* ---- Radii ---- */
+--radius-none:0px;
+--radius-hairline:2px;
+--radius-sm:3px;
+--radius-md:4px;
+--radius-pill:999px;
+
+/* ---- Border widths ---- */
+--stroke-hairline:1px;
+--stroke-medium:1.5px;
+--stroke-rule:2px;
+
+/* ---- Elevation ---- */
+--shadow-none:none;
+--shadow-hairline:0 0 0 1px rgba(58,57,55,.10);
+--shadow-lift:0 1px 2px rgba(38,37,31,.05),0 8px 24px rgba(38,37,31,.06);
+--shadow-overlay:0 24px 64px rgba(1,37,31,.18);
+--overlay-scrim:rgba(1,37,31,.62);
+--blur-scrim:blur(6px);
+--protect-bottom:linear-gradient(to top,rgba(1,37,31,.78) 0%,rgba(1,37,31,.42) 42%,rgba(1,37,31,0) 100%);
+
+/* ---- Motion ---- */
+--ease-quiet:cubic-bezier(.22,.61,.36,1);
+--ease-in-out:cubic-bezier(.4,0,.2,1);
+--duration-fast:160ms;
+--duration-base:280ms;
+--duration-slow:520ms;
+--duration-reveal:900ms;
+--transition-quiet:all var(--duration-base) var(--ease-quiet);
+--reveal-distance:14px;
+}
+
+@media (prefers-reduced-motion:reduce){:root{
+--duration-fast:0ms;
+--duration-base:0ms;
+--duration-slow:0ms;
+--duration-reveal:0ms;
+--reveal-distance:0px;
+}}

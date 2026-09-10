@@ -1,0 +1,16 @@
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+body{margin:0;background:var(--surface-page);color:var(--text-body);font:var(--type-body);text-wrap:pretty;font-family:var(--font-body)}
+h1,h2,h3,h4{margin:0;font-family:var(--font-display);font-weight:var(--weight-light);color:var(--text-display);letter-spacing:var(--tracking-display)}
+p{margin:0 0 1em}
+img{max-width:100%;display:block}
+a{color:var(--text-link);text-decoration:none;border-bottom:1px solid var(--rule-hairline);transition:color var(--duration-fast) var(--ease-quiet),border-color var(--duration-fast) var(--ease-quiet)}
+a:hover{color:var(--text-link-hover);border-bottom-color:var(--rule-accent)}
+::selection{background:var(--gold-200);color:var(--ink-900)}
+:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px}
+.ph-eyebrow{font:var(--type-caption);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);color:var(--text-muted)}
+.ph-rule{border:0;border-top:1px solid var(--rule-hairline);margin:0}
+
+.skip-link{position:absolute;left:-9999px;top:0;padding:14px 22px;background:var(--ph-bone);color:var(--ph-ink);z-index:2000;font:var(--type-caption);text-transform:uppercase;letter-spacing:0.16em;border:0}
+.skip-link:focus-visible{left:16px;top:16px}
