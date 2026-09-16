@@ -145,7 +145,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
   .site-nav__inner .btn--text:hover{color:var(--gold-500)}
 }
 
-.site-nav__menu-btn{display:none}
+.site-nav__menu-btn{display:none;padding-left:.5rem;padding-right:.5rem}
 
 @media (max-width:899px){
   .site-nav__links{display:none}
@@ -156,7 +156,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .mobile-menu.is-open{opacity:1}
 .mobile-menu[hidden]{display:none}
 .mobile-menu__top{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:88px;flex:0 0 auto}
-.mobile-menu__top .btn--text{color:var(--text-on-inverse)}
+.mobile-menu__top .btn--text{color:var(--text-on-inverse);padding-left:.5rem;padding-right:.5rem}
 .mobile-menu__top img{height:44px;width:auto}
 /* Taking the space the header leaves lets the links sit on the middle of it. */
 .mobile-menu__links{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:28px;padding:24px 24px 88px;overflow-y:auto}
