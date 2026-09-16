@@ -114,8 +114,8 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .site-nav__inner{width:100%;max-width:var(--container-max);display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:88px;box-sizing:border-box}
 @media (max-width:720px){.site-nav__inner{padding:0 24px}}
 .site-nav__logo{display:block;border:0;line-height:0}
-.site-nav__logo img{display:block;width:auto;height:59px;transition:height var(--duration-base) var(--ease-quiet),opacity var(--duration-base) var(--ease-quiet)}
-.site-nav.is-scrolled .site-nav__logo img{height:50px}
+.site-nav__logo img{display:block;width:auto;height:44px;transition:height var(--duration-base) var(--ease-quiet),opacity var(--duration-base) var(--ease-quiet)}
+.site-nav.is-scrolled .site-nav__logo img{height:38px}
 .site-nav__logo img.is-hidden-logo{position:absolute;opacity:0;pointer-events:none}
 
 .site-nav__links{display:flex;align-items:center;gap:40px}
@@ -152,13 +152,14 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
   .site-nav__menu-btn{display:inline-flex}
 }
 
-.mobile-menu{position:fixed;inset:0;z-index:1200;background:var(--surface-inverse-deep);display:flex;flex-direction:column;opacity:0;transition:opacity var(--duration-fade) var(--ease-quiet)}
+.mobile-menu{position:fixed;inset:0;z-index:1200;background:rgba(1,37,31,.8);display:flex;flex-direction:column;opacity:0;transition:opacity var(--duration-fade) var(--ease-quiet)}
 .mobile-menu.is-open{opacity:1}
 .mobile-menu[hidden]{display:none}
 .mobile-menu__top{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:88px;flex:0 0 auto}
 .mobile-menu__top .btn--text{color:var(--text-on-inverse)}
-.mobile-menu__top img{height:59px;width:auto}
-.mobile-menu__links{display:flex;flex-direction:column;align-items:center;text-align:center;gap:28px;padding:24px 24px 48px;overflow-y:auto}
+.mobile-menu__top img{height:44px;width:auto}
+/* Taking the space the header leaves lets the links sit on the middle of it. */
+.mobile-menu__links{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:28px;padding:24px 24px 88px;overflow-y:auto}
 .mobile-menu__links a{font:var(--type-heading-3);color:var(--text-on-inverse-strong);text-decoration:none;border-bottom:0}
 .mobile-menu__links a.is-contact{color:var(--gold-500)}
 @media (hover:hover){
