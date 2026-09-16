@@ -354,7 +354,7 @@
   var loadAnalytics = function () {
     if (gaLoaded) return;
     gaLoaded = true;
-    var GA_ID = 'G-XXXXXXXXXX'; // placeholder — replace with the real Measurement ID
+    var GA_ID = 'G-QL5EXM8TCN';
     var s = document.createElement('script');
     s.async = true;
     s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
@@ -382,18 +382,22 @@
 
   var consentAnalytics = false;
 
-  if (banner || panel) {
-    try {
-      var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
-      if (saved && typeof saved.analytics === 'boolean') {
-        consentAnalytics = saved.analytics;
-        if (saved.analytics) loadAnalytics();
-      } else {
-        showBanner(true);
-      }
-    } catch (e) {
+  // Reading the stored choice sits outside the banner wiring below: the legal pages
+  // carry no banner markup, and an acceptance already given has to be honoured there
+  // too or analytics would only ever run on the home page.
+  try {
+    var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+    if (saved && typeof saved.analytics === 'boolean') {
+      consentAnalytics = saved.analytics;
+      if (consentAnalytics) loadAnalytics();
+    } else {
       showBanner(true);
     }
+  } catch (e) {
+    showBanner(true);
+  }
+
+  if (banner || panel) {
 
     document.querySelectorAll('[data-cookie-accept]').forEach(function (btn) {
       btn.addEventListener('click', function () {
