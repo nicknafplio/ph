@@ -170,9 +170,11 @@
     var quoteIndex = 0;
     var raf = null;
     var autoplayTimeout = null;
-    var settleTimer = null;
+    var slideRaf = null;
     var autoplayPaused = false;
     var AUTOPLAY_MS = 5000;
+    var SLIDE_MS = 620;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     var ignoreScrollUntil = 0;
 
     var setActive = function (i) {
@@ -201,13 +203,57 @@
     // Our own scrolling emits scroll events the whole way. Left unguarded, the handler
     // below reads a half-finished position, flips the dot to the nearest card and
     // restarts the interval mid-transition.
+    // offsetLeft is measured from the nearest positioned ancestor, not the track, so it
+    // carries the page gutter with it. Subtracting the first card's own offset gives the
+    // distance the track has to travel.
+    var offsetOf = function (i) { return cards[i].offsetLeft - cards[0].offsetLeft; };
+
     var jumpTo = function (i) {
-      ignoreScrollUntil = Date.now() + 800;
-      carousel.scrollTo({ left: cards[i].offsetLeft, behavior: 'auto' });
+      if (slideRaf) { cancelAnimationFrame(slideRaf); slideRaf = null; carousel.style.scrollSnapType = ''; }
+      ignoreScrollUntil = Date.now() + 200;
+      carousel.scrollLeft = offsetOf(i);
+    };
+
+    // scroll-behavior:smooth hands the easing to the browser, and under mandatory
+    // snapping some of them drop the animation and snap outright. Driving it here
+    // keeps the ease-out consistent everywhere.
+    var easeOut = function (t) { return 1 - Math.pow(1 - t, 3); };
+
+    var slideTo = function (i, done) {
+      var target = offsetOf(i);
+      var start = carousel.scrollLeft;
+      var delta = target - start;
+      if (slideRaf) { cancelAnimationFrame(slideRaf); slideRaf = null; }
+      if (!delta || reduceMotion.matches) {
+        carousel.style.scrollSnapType = '';
+        ignoreScrollUntil = Date.now() + 200;
+        carousel.scrollLeft = target;
+        if (done) done();
+        return;
+      }
+      // Snapping fights a scripted tween frame by frame, so lift it for the duration.
+      carousel.style.scrollSnapType = 'none';
+      var t0 = performance.now();
+      var step = function (now) {
+        var t = Math.min(1, (now - t0) / SLIDE_MS);
+        ignoreScrollUntil = Date.now() + 200;
+        carousel.scrollLeft = start + delta * easeOut(t);
+        if (t < 1) { slideRaf = requestAnimationFrame(step); return; }
+        slideRaf = null;
+        carousel.style.scrollSnapType = '';
+        if (done) done();
+      };
+      slideRaf = requestAnimationFrame(step);
     };
 
     var goToQuote = function (i) {
-      if (settleTimer) { clearTimeout(settleTimer); settleTimer = null; }
+      // A wrap cut short mid-slide can leave the track sitting in the copied run.
+      // Bring it home first so the index can never climb off the end of the track.
+      if (quoteIndex >= count) {
+        jumpTo(quoteIndex - count);
+        setActive(quoteIndex - count);
+        i -= count;
+      }
       if (i < 0) {
         // Enter the copied run at the matching card first, so stepping back from the
         // first quote travels one card rather than the length of the track.
@@ -215,17 +261,11 @@
         i = count - 1;
       }
       setActive(i);
-      ignoreScrollUntil = Date.now() + 800;
-      carousel.scrollTo({ left: cards[i].offsetLeft, behavior: 'smooth' });
-      if (i >= count) {
-        // Once the smooth scroll has settled on the copy, swap to the identical-looking
-        // original so the track never runs out of cards ahead of it.
-        settleTimer = setTimeout(function () {
-          settleTimer = null;
-          jumpTo(i - count);
-          setActive(i - count);
-        }, 700);
-      }
+      slideTo(i, function () {
+        // Once the slide has landed on the copy, swap to the identical-looking original
+        // so the track always has cards ahead of it.
+        if (i >= count) { jumpTo(i - count); setActive(i - count); }
+      });
       resetAutoplay();
     };
 
@@ -253,10 +293,10 @@
       raf = requestAnimationFrame(function () {
         raf = null;
         var closest = 0, min = Infinity;
-        cards.forEach(function (c, i) {
-          var d = Math.abs(c.offsetLeft - carousel.scrollLeft);
+        for (var i = 0; i < cards.length; i++) {
+          var d = Math.abs(offsetOf(i) - carousel.scrollLeft);
           if (d < min) { min = d; closest = i; }
-        });
+        }
         // A swipe that lands on a new card earns a fresh interval, not the tail of the old one.
         if (closest === quoteIndex) return;
         // A swipe that carries into the copied run gets pulled back to its original, or
