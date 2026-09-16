@@ -195,12 +195,14 @@
 /* ---- Motion ---- */
 --ease-quiet:cubic-bezier(.22,.61,.36,1);
 --ease-in-out:cubic-bezier(.4,0,.2,1);
+--ease-exit:cubic-bezier(.4,0,1,1);
 --duration-fast:160ms;
 --duration-base:280ms;
 --duration-slow:520ms;
---duration-reveal:900ms;
+--duration-reveal:560ms;
 --transition-quiet:all var(--duration-base) var(--ease-quiet);
 --reveal-distance:14px;
+--stagger-step:80ms;
 }
 
 @media (prefers-reduced-motion:reduce){:root{
@@ -209,4 +211,5 @@
 --duration-slow:0ms;
 --duration-reveal:0ms;
 --reveal-distance:0px;
+--stagger-step:0ms;
 }}

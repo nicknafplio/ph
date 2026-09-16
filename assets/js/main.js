@@ -13,28 +13,33 @@
     var navLogoGold = navLogo ? navLogo.getAttribute('data-src-gold') : null;
     var navScrolled = false;
     var navHidden = false;
+    var navTicking = false;
 
     var updateNav = function () {
+      navTicking = false;
       var scrolled = window.scrollY > 40;
       if (scrolled !== navScrolled) {
         navScrolled = scrolled;
         nav.classList.toggle('is-scrolled', navScrolled);
         if (navLogo) navLogo.src = navScrolled ? navLogoGold : navLogoReversed;
       }
-      var hidden = false;
-      if (footer) {
-        var r = footer.getBoundingClientRect();
-        hidden = r.top < window.innerHeight + window.innerHeight * 0.2;
-      }
+      // Retreat as the footer enters the viewport, not a fifth of a screen before it.
+      var hidden = footer ? footer.getBoundingClientRect().top < window.innerHeight : false;
       if (hidden !== navHidden) {
         navHidden = hidden;
         nav.classList.toggle('is-hidden', navHidden);
       }
     };
 
+    var queueNavUpdate = function () {
+      if (navTicking) return;
+      navTicking = true;
+      requestAnimationFrame(updateNav);
+    };
+
     updateNav();
-    window.addEventListener('scroll', updateNav, { passive: true });
-    window.addEventListener('resize', updateNav);
+    window.addEventListener('scroll', queueNavUpdate, { passive: true });
+    window.addEventListener('resize', queueNavUpdate);
   }
 
   /* ---------------- Mobile menu ---------------- */
@@ -43,21 +48,53 @@
   var mobileMenu = document.querySelector('[data-mobile-menu]');
 
   if (menuOpenBtn && mobileMenu) {
+    var menuCloseTimer = null;
+    var menuIsOpen = function () { return !mobileMenu.hidden; };
+
     var openMenu = function () {
+      if (menuCloseTimer) { clearTimeout(menuCloseTimer); menuCloseTimer = null; }
       mobileMenu.hidden = false;
       document.body.style.overflow = 'hidden';
+      // The panel must paint once at opacity 0 before the class lands, or the fade is skipped.
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { mobileMenu.classList.add('is-open'); });
+      });
+      if (menuCloseBtn) menuCloseBtn.focus();
     };
+
     var closeMenu = function () {
-      mobileMenu.hidden = true;
+      if (!menuIsOpen()) return;
+      mobileMenu.classList.remove('is-open');
       document.body.style.overflow = '';
+      menuCloseTimer = setTimeout(function () {
+        mobileMenu.hidden = true;
+        menuCloseTimer = null;
+      }, reducedMotion ? 0 : 280);
+      menuOpenBtn.focus();
     };
+
     menuOpenBtn.addEventListener('click', openMenu);
     if (menuCloseBtn) menuCloseBtn.addEventListener('click', closeMenu);
     mobileMenu.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', closeMenu);
     });
     window.addEventListener('resize', function () {
-      if (window.innerWidth >= 900) closeMenu();
+      if (window.innerWidth >= 900 && menuIsOpen()) closeMenu();
+    });
+
+    // aria-modal="true" promises containment, so Escape and a tab loop have to honour it.
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menuIsOpen()) closeMenu();
+    });
+
+    mobileMenu.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      var focusable = mobileMenu.querySelectorAll('a[href], button:not([disabled])');
+      if (!focusable.length) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
   }
 
@@ -66,7 +103,9 @@
   var reveal = function (el) { el.classList.add('is-visible'); };
 
   if (!reducedMotion && 'IntersectionObserver' in window) {
+    var observerReported = false;
     var io = new IntersectionObserver(function (entries) {
+      observerReported = true;
       entries.forEach(function (entry) {
         if (entry.isIntersecting) { reveal(entry.target); io.unobserve(entry.target); }
       });
@@ -77,8 +116,11 @@
       if (r.top < window.innerHeight) reveal(el);
       else io.observe(el);
     });
-    // Safety net: guarantee nothing stays hidden if observation ever fails.
-    setTimeout(function () { revealEls.forEach(reveal); }, 2500);
+    // Only fires if the observer never reported at all. Revealing unconditionally would
+    // uncover the whole page up front and leave scroll-reveal doing nothing thereafter.
+    setTimeout(function () {
+      if (!observerReported) revealEls.forEach(reveal);
+    }, 1200);
   } else {
     revealEls.forEach(reveal);
   }
@@ -90,20 +132,34 @@
     var dots = Array.prototype.slice.call(document.querySelectorAll('[data-carousel-dot]'));
     var prevBtn = document.querySelector('[data-carousel-prev]');
     var nextBtn = document.querySelector('[data-carousel-next]');
+    var region = carousel.closest('section') || carousel;
     var quoteIndex = 0;
     var raf = null;
     var autoplayTimeout = null;
+    var autoplayPaused = false;
+    var AUTOPLAY_MS = 7000;
 
     var setActive = function (i) {
       quoteIndex = i;
-      dots.forEach(function (d, di) { d.classList.toggle('is-active', di === i); });
+      dots.forEach(function (d, di) {
+        d.classList.toggle('is-active', di === i);
+        if (di === i) d.setAttribute('aria-current', 'true');
+        else d.removeAttribute('aria-current');
+      });
     };
 
+    var stopAutoplay = function () {
+      if (autoplayTimeout) { clearTimeout(autoplayTimeout); autoplayTimeout = null; }
+    };
+
+    // WCAG 2.2.2 requires a pause mechanism for content that moves on its own; reduced-motion
+    // users opt out of the movement altogether.
     var resetAutoplay = function () {
-      if (autoplayTimeout) clearTimeout(autoplayTimeout);
+      stopAutoplay();
+      if (reducedMotion || autoplayPaused || document.hidden || cards.length < 2) return;
       autoplayTimeout = setTimeout(function () {
         goToQuote((quoteIndex + 1) % cards.length);
-      }, 5000);
+      }, AUTOPLAY_MS);
     };
 
     var goToQuote = function (i) {
@@ -113,6 +169,21 @@
       if (card) carousel.scrollTo({ left: card.offsetLeft, behavior: reducedMotion ? 'auto' : 'smooth' });
       resetAutoplay();
     };
+
+    var pauseAutoplay = function () { autoplayPaused = true; stopAutoplay(); };
+    var resumeAutoplay = function () {
+      if (region.matches(':hover') || region.contains(document.activeElement)) return;
+      autoplayPaused = false;
+      resetAutoplay();
+    };
+
+    region.addEventListener('mouseenter', pauseAutoplay);
+    region.addEventListener('mouseleave', resumeAutoplay);
+    region.addEventListener('focusin', pauseAutoplay);
+    region.addEventListener('focusout', resumeAutoplay);
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) stopAutoplay(); else resetAutoplay();
+    });
 
     dots.forEach(function (dot, i) { dot.addEventListener('click', function () { goToQuote(i); }); });
     if (prevBtn) prevBtn.addEventListener('click', function () { goToQuote(quoteIndex - 1); });
@@ -127,7 +198,8 @@
           var d = Math.abs(c.offsetLeft - carousel.scrollLeft);
           if (d < min) { min = d; closest = i; }
         });
-        if (closest !== quoteIndex) setActive(closest);
+        // A swipe that lands on a new card earns a fresh interval, not the tail of the old one.
+        if (closest !== quoteIndex) { setActive(closest); resetAutoplay(); }
       });
     }, { passive: true });
 
@@ -251,6 +323,10 @@
 
     document.querySelectorAll('[data-cookie-close]').forEach(function (btn) {
       btn.addEventListener('click', function () { showPanel(false); });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && panel && !panel.hidden) showPanel(false);
     });
 
     document.querySelectorAll('[data-cookie-save]').forEach(function (btn) {

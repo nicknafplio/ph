@@ -97,30 +97,10 @@
   ]
 }
 </script>
+<link rel="preload" as="image" href="./assets/img/logo-PGA-black-on-white.png">
 <link rel="stylesheet" href="./assets/css/tokens.css">
 <link rel="stylesheet" href="./assets/css/base.css">
 <link rel="stylesheet" href="./assets/css/style.css">
-<style>
-.hero-cta-btn {
-  color: white !important;
-  transition: all 0.3s ease !important;
-}
-.hero-cta-btn:hover {
-  background-color: var(--gold-500) !important;
-  color: black !important;
-  border-color: var(--gold-500) !important;
-}
-
-@media (max-width: 720px) {
-  h2 {
-    font-size: 38px !important;
-  }
-  .carousel__card {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-}
-</style>
 </head>
 <body>
 
@@ -176,7 +156,7 @@
         </div>
         <div class="hero__aside reveal reveal--d1">
           <p class="hero__lead">Independent advice and trusted connections for individuals, families and family offices navigating complex decisions.</p>
-          <a href="#contact" class="btn btn--solid btn--lg btn--dark hero-cta-btn" style="background:transparent;border:2px solid var(--gold-500);border-radius:5px;color:white">Start a conversation</a>
+          <a href="#contact" class="btn btn--lg btn--hero">Start a conversation</a>
         </div>
       </div>
     </div>
@@ -301,7 +281,7 @@
         </div>
       </div>
 
-      <div class="carousel-dots" role="tablist" aria-label="Choose perspective">
+      <div class="carousel-dots" role="group" aria-label="Choose perspective">
         <button type="button" data-carousel-dot aria-label="Show perspective 1"></button>
         <button type="button" data-carousel-dot aria-label="Show perspective 2"></button>
         <button type="button" data-carousel-dot aria-label="Show perspective 3"></button>

@@ -32,19 +32,13 @@
   }
 }
 </script>
+<link rel="preload" as="image" href="./assets/img/logo-PGA-black-on-white.png">
 <link rel="stylesheet" href="./assets/css/tokens.css">
 <link rel="stylesheet" href="./assets/css/base.css">
 <link rel="stylesheet" href="./assets/css/style.css">
 <style>
-.site-nav {
-  background-color: var(--surface-inverse);
-}
-
-@media (max-width: 720px) {
-  h2 {
-    font-size: 38px !important;
-  }
-}
+/* No dark hero on the legal pages, so the nav needs its own ground in the unscrolled state. */
+.site-nav:not(.is-scrolled){background-color:var(--surface-inverse)}
 </style>
 </head>
 <body>
