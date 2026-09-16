@@ -200,6 +200,7 @@
 --duration-base:280ms;
 --duration-slow:520ms;
 --duration-reveal:560ms;
+--duration-fade:1s;
 --transition-quiet:all var(--duration-base) var(--ease-quiet);
 --reveal-distance:14px;
 --stagger-step:80ms;
@@ -210,6 +211,7 @@
 --duration-base:0ms;
 --duration-slow:0ms;
 --duration-reveal:0ms;
+--duration-fade:0ms;
 --reveal-distance:0px;
 --stagger-step:0ms;
 }}

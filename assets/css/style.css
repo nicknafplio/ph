@@ -46,7 +46,7 @@
 .btn--text{color:var(--text-body);padding:4px 0;letter-spacing:var(--tracking-eyebrow)}
 .btn--text.btn--dark{color:var(--text-on-inverse)}
 
-.btn--hero{background:transparent;color:var(--text-on-inverse-strong);border:2px solid var(--gold-500);border-radius:5px;transition-duration:var(--duration-slow),var(--duration-slow),var(--duration-slow),var(--duration-fast)}
+.btn--hero{background:transparent;color:var(--text-on-inverse-strong);border:2px solid var(--gold-500);border-radius:5px;transition-duration:var(--duration-fade),var(--duration-fade),var(--duration-fade),var(--duration-fast)}
 
 .carousel-arrow{background:var(--gold-500);border-color:var(--gold-500);color:#fff}
 .carousel-arrow:focus-visible{background:var(--forest-700);border-color:var(--forest-700)}
@@ -119,7 +119,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 
 /* Nav buttons (Contact, Menu) sit on a transparent/forest ground until scrolled,
    then on a bone ground — recolour them the same way the plain nav links are. */
-.site-nav__inner .btn--outline{color:var(--text-on-inverse);border-color:var(--rule-on-inverse);transition-duration:var(--duration-slow),var(--duration-slow),var(--duration-slow),var(--duration-fast)}
+.site-nav__inner .btn--outline{color:var(--text-on-inverse);border-color:var(--rule-on-inverse);transition-duration:var(--duration-fade),var(--duration-fade),var(--duration-fade),var(--duration-fast)}
 .site-nav.is-scrolled .site-nav__inner .btn--outline{color:var(--text-body);border-color:var(--rule-strong)}
 
 .site-nav__inner .btn--text{color:var(--text-on-inverse)}
