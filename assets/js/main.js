@@ -152,6 +152,16 @@
   /* ---------------- Testimonial carousel ---------------- */
   var carousel = document.querySelector('[data-carousel]');
   if (carousel) {
+    var originals = Array.prototype.slice.call(carousel.children);
+    var count = originals.length;
+    // A duplicate run after the last card means the wrap to the first is a one-card
+    // step into the copy followed by an invisible jump home, not a scroll all the
+    // way back across the track.
+    originals.forEach(function (card) {
+      var clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      carousel.appendChild(clone);
+    });
     var cards = Array.prototype.slice.call(carousel.children);
     var dots = Array.prototype.slice.call(document.querySelectorAll('[data-carousel-dot]'));
     var prevBtn = document.querySelector('[data-carousel-prev]');
@@ -160,15 +170,17 @@
     var quoteIndex = 0;
     var raf = null;
     var autoplayTimeout = null;
+    var settleTimer = null;
     var autoplayPaused = false;
     var AUTOPLAY_MS = 5000;
     var ignoreScrollUntil = 0;
 
     var setActive = function (i) {
       quoteIndex = i;
+      var active = i % count;
       dots.forEach(function (d, di) {
-        d.classList.toggle('is-active', di === i);
-        if (di === i) d.setAttribute('aria-current', 'true');
+        d.classList.toggle('is-active', di === active);
+        if (di === active) d.setAttribute('aria-current', 'true');
         else d.removeAttribute('aria-current');
       });
     };
@@ -180,22 +192,39 @@
     // WCAG 2.2.2 requires a pause mechanism for content that moves on its own.
     var resetAutoplay = function () {
       stopAutoplay();
-      if (autoplayPaused || document.hidden || cards.length < 2) return;
+      if (autoplayPaused || document.hidden || count < 2) return;
       autoplayTimeout = setTimeout(function () {
-        goToQuote((quoteIndex + 1) % cards.length);
+        goToQuote(quoteIndex + 1);
       }, AUTOPLAY_MS);
     };
 
+    // Our own scrolling emits scroll events the whole way. Left unguarded, the handler
+    // below reads a half-finished position, flips the dot to the nearest card and
+    // restarts the interval mid-transition.
+    var jumpTo = function (i) {
+      ignoreScrollUntil = Date.now() + 800;
+      carousel.scrollTo({ left: cards[i].offsetLeft, behavior: 'auto' });
+    };
+
     var goToQuote = function (i) {
-      i = Math.max(0, Math.min(cards.length - 1, i));
+      if (settleTimer) { clearTimeout(settleTimer); settleTimer = null; }
+      if (i < 0) {
+        // Enter the copied run at the matching card first, so stepping back from the
+        // first quote travels one card rather than the length of the track.
+        jumpTo(count);
+        i = count - 1;
+      }
       setActive(i);
-      var card = cards[i];
-      if (card) {
-        // Our own smooth scroll emits scroll events the whole way. Left unguarded, the
-        // handler below reads a half-finished position, flips the dot to the nearest
-        // card and restarts the interval mid-transition.
-        ignoreScrollUntil = Date.now() + 800;
-        carousel.scrollTo({ left: card.offsetLeft, behavior: 'smooth' });
+      ignoreScrollUntil = Date.now() + 800;
+      carousel.scrollTo({ left: cards[i].offsetLeft, behavior: 'smooth' });
+      if (i >= count) {
+        // Once the smooth scroll has settled on the copy, swap to the identical-looking
+        // original so the track never runs out of cards ahead of it.
+        settleTimer = setTimeout(function () {
+          settleTimer = null;
+          jumpTo(i - count);
+          setActive(i - count);
+        }, 700);
       }
       resetAutoplay();
     };
@@ -229,7 +258,12 @@
           if (d < min) { min = d; closest = i; }
         });
         // A swipe that lands on a new card earns a fresh interval, not the tail of the old one.
-        if (closest !== quoteIndex) { setActive(closest); resetAutoplay(); }
+        if (closest === quoteIndex) return;
+        // A swipe that carries into the copied run gets pulled back to its original, or
+        // the track would eventually scroll off its own end.
+        if (closest >= count) { jumpTo(closest - count); closest -= count; }
+        setActive(closest);
+        resetAutoplay();
       });
     }, { passive: true });
 

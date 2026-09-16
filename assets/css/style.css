@@ -199,9 +199,9 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .perspectives-head{margin-bottom:48px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between}
 .perspectives-controls{display:flex;gap:12px}
 
-.carousel{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;margin:0 -8px;scrollbar-width:none}
+.carousel{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none}
 .carousel::-webkit-scrollbar{display:none}
-.carousel__card{flex:0 0 78%;max-width:440px;scroll-snap-align:start;border:1px solid var(--rule-hairline);border-radius:var(--radius-sm);padding:40px 36px;background:var(--surface-card)}
+.carousel__card{flex:0 0 calc((100% - 24px) / 2);scroll-snap-align:start;border:1px solid var(--rule-hairline);border-radius:var(--radius-sm);padding:40px 36px;background:var(--surface-card)}
 .carousel__quote{margin:0 0 24px;font:var(--type-heading-3);font-weight:var(--weight-regular);color:var(--text-display);line-height:var(--leading-heading)}
 .carousel__attribution{font:var(--type-caption);text-transform:uppercase;letter-spacing:0.16em;color:var(--text-muted)}
 
