@@ -89,6 +89,19 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 /* ================= Definition list (expertise) ================= */
 .deflist{margin:0;border-top:1px solid var(--rule-hairline)}
 .deflist__row{display:grid;grid-template-columns:1fr 1.4fr;gap:var(--space-6);padding:var(--space-5) 0;border-bottom:1px solid var(--rule-hairline);align-items:baseline}
+/* The list carries .reveal purely as the observer's trigger — the rows do the animating,
+   so the cascade fires once for the whole group. Staggering each row's own observer
+   instead would leave the lower rows sitting on screen waiting out their delay.
+   nth-child rather than numbered classes: adding or removing a row needs no markup
+   change, and the last rule caps the wait if the list ever grows. */
+.deflist.reveal{opacity:1;transform:none;transition:none}
+.deflist__row{opacity:0;transform:translateY(var(--reveal-distance));transition:opacity var(--duration-reveal) var(--ease-quiet),transform var(--duration-reveal) var(--ease-quiet)}
+.deflist.is-visible .deflist__row{opacity:1;transform:none}
+.deflist__row:nth-child(2){transition-delay:var(--stagger-step)}
+.deflist__row:nth-child(3){transition-delay:calc(var(--stagger-step) * 2)}
+.deflist__row:nth-child(4){transition-delay:calc(var(--stagger-step) * 3)}
+.deflist__row:nth-child(5){transition-delay:calc(var(--stagger-step) * 4)}
+.deflist__row:nth-child(n+6){transition-delay:calc(var(--stagger-step) * 5)}
 .deflist__term{font-family:var(--font-display);font-weight:var(--weight-regular);font-size:var(--size-heading-3);line-height:var(--leading-tight);color:var(--text-display);margin:0}
 .deflist__desc{margin:0;font:var(--type-body);color:var(--text-secondary)}
 @media (max-width:720px){.deflist__row{grid-template-columns:1fr;gap:var(--space-2)}}
