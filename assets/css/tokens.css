@@ -206,12 +206,13 @@
 --stagger-step:80ms;
 }
 
+/* Reduce-motion suppresses movement — scrolling, reveals, transforms — because that is what
+   triggers vestibular symptoms. A flat colour cross-fade does not, so --duration-fade survives. */
 @media (prefers-reduced-motion:reduce){:root{
 --duration-fast:0ms;
 --duration-base:0ms;
 --duration-slow:0ms;
 --duration-reveal:0ms;
---duration-fade:0ms;
 --reveal-distance:0px;
 --stagger-step:0ms;
 }}
