@@ -161,7 +161,8 @@
     var raf = null;
     var autoplayTimeout = null;
     var autoplayPaused = false;
-    var AUTOPLAY_MS = 7000;
+    var AUTOPLAY_MS = 5000;
+    var ignoreScrollUntil = 0;
 
     var setActive = function (i) {
       quoteIndex = i;
@@ -176,8 +177,7 @@
       if (autoplayTimeout) { clearTimeout(autoplayTimeout); autoplayTimeout = null; }
     };
 
-    // WCAG 2.2.2 requires a pause mechanism for content that moves on its own; reduced-motion
-    // users opt out of the movement altogether.
+    // WCAG 2.2.2 requires a pause mechanism for content that moves on its own.
     var resetAutoplay = function () {
       stopAutoplay();
       if (autoplayPaused || document.hidden || cards.length < 2) return;
@@ -190,7 +190,13 @@
       i = Math.max(0, Math.min(cards.length - 1, i));
       setActive(i);
       var card = cards[i];
-      if (card) carousel.scrollTo({ left: card.offsetLeft, behavior: 'smooth' });
+      if (card) {
+        // Our own smooth scroll emits scroll events the whole way. Left unguarded, the
+        // handler below reads a half-finished position, flips the dot to the nearest
+        // card and restarts the interval mid-transition.
+        ignoreScrollUntil = Date.now() + 800;
+        carousel.scrollTo({ left: card.offsetLeft, behavior: 'smooth' });
+      }
       resetAutoplay();
     };
 
@@ -214,7 +220,7 @@
     if (nextBtn) nextBtn.addEventListener('click', function () { goToQuote(quoteIndex + 1); });
 
     carousel.addEventListener('scroll', function () {
-      if (raf) return;
+      if (raf || Date.now() < ignoreScrollUntil) return;
       raf = requestAnimationFrame(function () {
         raf = null;
         var closest = 0, min = Infinity;
