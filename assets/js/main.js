@@ -3,19 +3,6 @@
 
   var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------------- Smooth anchor scrolling ---------------- */
-  // CSS scroll-behavior:smooth isn't reliably honoured by every browser (notably
-  // older Safari), so drive same-page anchor jumps from JS to guarantee the animation.
-  document.querySelectorAll('a[href^="#"]:not([href="#"]):not(.skip-link)').forEach(function (link) {
-    link.addEventListener('click', function (e) {
-      var target = document.getElementById(link.getAttribute('href').slice(1));
-      if (!target) return;
-      e.preventDefault();
-      target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
-      if (window.history && window.history.pushState) window.history.pushState(null, '', link.getAttribute('href'));
-    });
-  });
-
   /* ---------------- Sticky nav: scroll + hide-near-footer state ---------------- */
   var nav = document.querySelector('[data-nav]');
   var navLogo = document.querySelector('[data-nav-logo]');
