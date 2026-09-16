@@ -91,10 +91,12 @@
       if (!menuIsOpen()) return;
       mobileMenu.classList.remove('is-open');
       document.body.style.overflow = '';
+      // Read the fade length off the CSS rather than repeating it here — hiding the
+      // panel early would cut the fade-out dead.
       menuCloseTimer = setTimeout(function () {
         mobileMenu.hidden = true;
         menuCloseTimer = null;
-      }, reducedMotion ? 0 : 280);
+      }, (parseFloat(getComputedStyle(mobileMenu).transitionDuration) || 0) * 1000);
       menuOpenBtn.focus();
     };
 
