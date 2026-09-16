@@ -199,9 +199,9 @@
 --duration-fast:160ms;
 --duration-base:280ms;
 --duration-slow:520ms;
---duration-reveal:560ms;
+--duration-reveal:1s;
 --duration-fade:1s;
 --transition-quiet:all var(--duration-base) var(--ease-quiet);
---reveal-distance:14px;
---stagger-step:80ms;
+--reveal-distance:28px;
+--stagger-step:200ms;
 }
