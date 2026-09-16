@@ -122,6 +122,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 
 @media (hover:hover){
   .site-nav__link:hover{color:var(--gold-700);border-bottom-color:var(--gold-500)}
+  .site-nav.is-scrolled .site-nav__link:hover{color:#fff;border-bottom-color:#fff}
   .site-nav__inner .btn--outline:hover{color:var(--gold-500);border-color:var(--gold-500)}
   .site-nav.is-scrolled .site-nav__inner .btn--outline:hover{color:var(--text-accent);border-color:var(--rule-accent)}
   .site-nav__inner .btn--text:hover{color:var(--gold-500)}
