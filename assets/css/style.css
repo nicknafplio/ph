@@ -46,7 +46,7 @@
 .btn--text{color:var(--text-body);padding:4px 0;letter-spacing:var(--tracking-eyebrow)}
 .btn--text.btn--dark{color:var(--text-on-inverse)}
 
-.btn--hero{background:transparent;color:var(--text-on-inverse-strong);border:2px solid var(--gold-500);border-radius:5px}
+.btn--hero{background:transparent;color:var(--text-on-inverse-strong);border:2px solid var(--gold-500);border-radius:5px;transition-duration:var(--duration-slow),var(--duration-slow),var(--duration-slow),var(--duration-fast)}
 
 .carousel-arrow{background:var(--gold-500);border-color:var(--gold-500);color:#fff}
 .carousel-arrow:focus-visible{background:var(--forest-700);border-color:var(--forest-700)}
@@ -59,8 +59,7 @@
   .btn--outline.btn--dark:hover{color:var(--gold-500);border-color:var(--gold-500)}
   .btn--text:hover{color:var(--text-link-hover)}
   .carousel-arrow:hover{background:var(--forest-700);border-color:var(--forest-700)}
-  /* Slow bloom in, quick release out: the invitation lingers, the retreat does not. */
-  .btn--hero:hover{background:var(--gold-500);color:var(--text-on-accent);border-color:var(--gold-500);transition-duration:var(--duration-slow),var(--duration-slow),var(--duration-slow),var(--duration-fast)}
+  .btn--hero:hover{background:var(--gold-500);color:var(--text-on-accent);border-color:var(--gold-500)}
 }
 
 /* ================= Forms ================= */
@@ -111,12 +110,16 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 
 .site-nav__links{display:flex;align-items:center;gap:40px}
 .site-nav__link{position:relative;font:var(--type-body-sm);text-decoration:none;color:var(--text-on-inverse-strong);transition:color 0.5s ease;padding-bottom:2px}
-.site-nav__link::after{content:'';position:absolute;bottom:0;right:0;width:100%;height:1px;background-color:transparent;transform:scaleX(0);transform-origin:right;transition:transform 0.5s ease,background-color 0.5s ease}
+/* Two-layer underline: a high-contrast base line snaps in first, then gold sweeps
+   over it right-to-left, so the line reads clearly before the accent colour arrives. */
+.site-nav__link::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background-color:#fff;opacity:0;transition:opacity 0.2s ease}
+.site-nav__link::after{content:'';position:absolute;bottom:0;right:0;width:100%;height:1px;background-color:var(--gold-500);transform:scaleX(0);transform-origin:right;transition:transform 0.5s ease}
 .site-nav.is-scrolled .site-nav__link{color:var(--text-body)}
+.site-nav.is-scrolled .site-nav__link::before{background-color:#000}
 
 /* Nav buttons (Contact, Menu) sit on a transparent/forest ground until scrolled,
    then on a bone ground — recolour them the same way the plain nav links are. */
-.site-nav__inner .btn--outline{color:var(--text-on-inverse);border-color:var(--rule-on-inverse)}
+.site-nav__inner .btn--outline{color:var(--text-on-inverse);border-color:var(--rule-on-inverse);transition-duration:var(--duration-slow),var(--duration-slow),var(--duration-slow),var(--duration-fast)}
 .site-nav.is-scrolled .site-nav__inner .btn--outline{color:var(--text-body);border-color:var(--rule-strong)}
 
 .site-nav__inner .btn--text{color:var(--text-on-inverse)}
@@ -124,7 +127,8 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 
 @media (hover:hover){
   .site-nav__link:hover{color:#fff}
-  .site-nav__link:hover::after{transform:scaleX(1);background-color:var(--gold-500)}
+  .site-nav__link:hover::before{opacity:1}
+  .site-nav__link:hover::after{transform:scaleX(1)}
   .site-nav.is-scrolled .site-nav__link:hover{color:var(--gold-700)}
   .site-nav__inner .btn--outline:hover{color:var(--gold-500);border-color:var(--gold-500)}
   .site-nav.is-scrolled .site-nav__inner .btn--outline:hover{color:var(--text-accent);border-color:var(--rule-accent)}
