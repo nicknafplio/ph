@@ -236,12 +236,56 @@
       <div class="site-footer__links">
         <a href="./privacy-policy.html" class="is-current">Privacy Policy</a>
         <a href="./cookie-policy.html">Cookie Policy</a>
+        <button type="button" data-cookie-settings>Cookie settings</button>
         <a href="https://www.linkedin.com/in/michael-shelton-agar-573106a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
     </div>
     <div class="site-footer__copy">Pigeon Hill Advisory Limited is a company registered in England and Wales under company number 17395888.</div>
   </div>
 </footer>
+
+<div class="cookie-banner" role="dialog" aria-label="Cookie consent" data-cookie-banner hidden>
+  <p>This site uses cookies. Strictly necessary cookies keep it working; analytics cookies are optional and help us understand how the site is used. They are only set with your consent.</p>
+  <div class="cookie-banner__actions">
+    <button type="button" class="btn btn--text btn--sm btn--dark" data-cookie-manage>Manage preferences</button>
+    <button type="button" class="btn btn--outline btn--sm btn--dark" data-cookie-reject>Reject analytics</button>
+    <button type="button" class="btn btn--solid btn--sm btn--dark" data-cookie-accept>Accept analytics</button>
+  </div>
+</div>
+
+<div class="cookie-overlay" role="dialog" aria-modal="true" aria-label="Cookie preferences" data-cookie-panel hidden>
+  <div class="cookie-panel">
+    <h2>Cookie preferences</h2>
+    <p>This site uses Google Analytics only. No advertising or behavioural tracking is used.</p>
+
+    <div class="cookie-panel__row">
+      <div>
+        <div class="cookie-panel__row-title">Strictly necessary</div>
+        <div class="cookie-panel__row-sub">Always active</div>
+      </div>
+      <label class="checkbox" for="ph-cookie-necessary">
+        <input type="checkbox" id="ph-cookie-necessary" checked disabled>
+        <span class="checkbox__box" aria-hidden="true"><span class="checkbox__tick"></span></span>
+      </label>
+    </div>
+
+    <div class="cookie-panel__row cookie-panel__row--analytics">
+      <div>
+        <div class="cookie-panel__row-title">Analytics</div>
+        <div class="cookie-panel__row-sub">Google Analytics, off until consent is given</div>
+      </div>
+      <label class="checkbox" for="ph-cookie-analytics">
+        <input type="checkbox" id="ph-cookie-analytics" data-cookie-analytics-toggle>
+        <span class="checkbox__box" aria-hidden="true"><span class="checkbox__tick"></span></span>
+      </label>
+    </div>
+
+    <div class="cookie-panel__actions">
+      <button type="button" class="btn btn--text btn--sm" data-cookie-close>Close</button>
+      <button type="button" class="btn btn--solid btn--sm" data-cookie-save>Save preferences</button>
+    </div>
+  </div>
+</div>
 
 <script src="./assets/js/main.js"></script>
 </body>
