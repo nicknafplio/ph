@@ -12,7 +12,8 @@
 .section__watermark{position:absolute;height:460px;opacity:.05;pointer-events:none}
 .section__watermark--tr{right:-120px;top:-90px}
 .section__watermark--bl{left:-140px;bottom:-100px;height:420px}
-.hero .section__watermark--tr{height:920px;top:50%;right:-260px;transform:translateY(-50%)}
+/* --parallax-y is driven from JS; the -50% keeps it centred regardless. */
+.hero .section__watermark--tr{height:920px;top:50%;right:-260px;transform:translateY(-50%) translateY(var(--parallax-y,0px));will-change:transform}
 
 .row{display:flex;flex-wrap:wrap;gap:64px}
 .row > *{flex:1 1 380px;min-width:0}

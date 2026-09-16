@@ -3,6 +3,31 @@
 
   var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---------------- Hero watermark parallax ---------------- */
+  // Drifting the dove at a fraction of scroll speed reads as depth. Reduce-motion opts
+  // out entirely: this is the vestibular-trigger kind of movement, not a colour fade.
+  var parallaxEl = document.querySelector('[data-parallax]');
+  var parallaxHero = parallaxEl && parallaxEl.closest('.hero');
+  if (parallaxHero && !reducedMotion) {
+    var parallaxTicking = false;
+
+    var updateParallax = function () {
+      parallaxTicking = false;
+      // Once the hero is off screen the transform is clipped away, so stop paying for it.
+      if (parallaxHero.getBoundingClientRect().bottom <= 0) return;
+      parallaxEl.style.setProperty('--parallax-y', (window.scrollY * 0.22).toFixed(1) + 'px');
+    };
+
+    var queueParallax = function () {
+      if (parallaxTicking) return;
+      parallaxTicking = true;
+      requestAnimationFrame(updateParallax);
+    };
+
+    updateParallax();
+    window.addEventListener('scroll', queueParallax, { passive: true });
+  }
+
   /* ---------------- Sticky nav: scroll + hide-near-footer state ---------------- */
   var nav = document.querySelector('[data-nav]');
   var navLogo = document.querySelector('[data-nav-logo]');
