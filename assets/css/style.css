@@ -109,7 +109,8 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .site-nav__logo img.is-hidden-logo{position:absolute;opacity:0;pointer-events:none}
 
 .site-nav__links{display:flex;align-items:center;gap:40px}
-.site-nav__link{font:var(--type-body-sm);text-decoration:none;border-bottom:1px solid transparent;color:var(--text-on-inverse-strong)}
+.site-nav__link{position:relative;font:var(--type-body-sm);text-decoration:none;color:var(--text-on-inverse-strong);transition:color 0.5s ease;padding-bottom:2px}
+.site-nav__link::after{content:'';position:absolute;bottom:0;right:0;width:100%;height:1px;background-color:transparent;transform:scaleX(0);transform-origin:right;transition:transform 0.5s ease,background-color 0.5s ease}
 .site-nav.is-scrolled .site-nav__link{color:var(--text-body)}
 
 /* Nav buttons (Contact, Menu) sit on a transparent/forest ground until scrolled,
@@ -121,8 +122,10 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .site-nav.is-scrolled .site-nav__inner .btn--text{color:var(--text-body)}
 
 @media (hover:hover){
-  .site-nav__link:hover{color:var(--gold-700);border-bottom-color:var(--gold-500)}
-  .site-nav.is-scrolled .site-nav__link:hover{color:#fff;border-bottom-color:#fff}
+  .site-nav__link:hover{color:var(--gold-700)}
+  .site-nav__link:hover::after{transform:scaleX(1);background-color:var(--gold-500)}
+  .site-nav.is-scrolled .site-nav__link:hover{color:#fff}
+  .site-nav.is-scrolled .site-nav__link:hover::after{background-color:#fff}
   .site-nav__inner .btn--outline:hover{color:var(--gold-500);border-color:var(--gold-500)}
   .site-nav.is-scrolled .site-nav__inner .btn--outline:hover{color:var(--text-accent);border-color:var(--rule-accent)}
   .site-nav__inner .btn--text:hover{color:var(--gold-500)}
