@@ -6,14 +6,17 @@
 <title>Page not found — Pigeon Hill Advisory</title>
 <meta name="description" content="The page you were looking for could not be found.">
 <meta name="robots" content="noindex, follow">
-<!-- Apache serves this document at the address that was requested, so every path here
-     is root-absolute: a relative one would resolve against that address and break. -->
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/assets/img/mark-dove-gold.svg" type="image/svg+xml">
-<link rel="preload" as="image" href="/assets/img/logo-PGA-black-on-white.png">
-<link rel="stylesheet" href="/assets/css/tokens.css">
-<link rel="stylesheet" href="/assets/css/base.css">
-<link rel="stylesheet" href="/assets/css/style.css">
+<!-- Paths here are relative so the page also renders when the site is served from a
+     subdirectory, as it is on GitHub Pages. Apache serves this document at whatever
+     address was requested, so a 404 below the root (/old/page) resolves them against
+     that folder and loses the styling; switch them to root-absolute once the site is
+     live at the apex if that case matters. -->
+<link rel="icon" href="./favicon.ico" sizes="any">
+<link rel="icon" href="./assets/img/mark-dove-gold.svg" type="image/svg+xml">
+<link rel="preload" as="image" href="./assets/img/logo-PGA-black-on-white.png">
+<link rel="stylesheet" href="./assets/css/tokens.css">
+<link rel="stylesheet" href="./assets/css/base.css">
+<link rel="stylesheet" href="./assets/css/style.css">
 <style>
 .site-nav:not(.is-scrolled){background-color:var(--surface-inverse)}
 /* The nav retreats whenever the footer is on screen, so the message has to fill the
@@ -30,20 +33,20 @@
 
 <nav class="site-nav" aria-label="Primary" data-nav>
   <div class="site-nav__inner">
-    <a href="/index.html" class="site-nav__logo" aria-label="Pigeon Hill Advisory — home">
+    <a href="./index.html" class="site-nav__logo" aria-label="Pigeon Hill Advisory — home">
       <img data-nav-logo
-           src="/assets/img/logo-horizontal-reversed.png"
-           data-src-reversed="/assets/img/logo-horizontal-reversed.png"
-           data-src-gold="/assets/img/logo-PGA-black-on-white.png"
+           src="./assets/img/logo-horizontal-reversed.png"
+           data-src-reversed="./assets/img/logo-horizontal-reversed.png"
+           data-src-gold="./assets/img/logo-PGA-black-on-white.png"
            alt="Pigeon Hill Advisory">
     </a>
 
     <div class="site-nav__links">
-      <a href="/index.html#about" class="site-nav__link">About Michael Shelton-Agar</a>
-      <a href="/index.html#expertise" class="site-nav__link">Expertise</a>
-      <a href="/index.html#approach" class="site-nav__link">Approach</a>
-      <a href="/index.html#perspectives" class="site-nav__link">Perspectives</a>
-      <a href="/index.html#contact" class="btn btn--outline btn--sm">Contact</a>
+      <a href="./index.html#about" class="site-nav__link">About Michael Shelton-Agar</a>
+      <a href="./index.html#expertise" class="site-nav__link">Expertise</a>
+      <a href="./index.html#approach" class="site-nav__link">Approach</a>
+      <a href="./index.html#perspectives" class="site-nav__link">Perspectives</a>
+      <a href="./index.html#contact" class="btn btn--outline btn--sm">Contact</a>
     </div>
 
     <button type="button" class="btn btn--text btn--sm site-nav__menu-btn" data-menu-open aria-haspopup="dialog">Menu</button>
@@ -52,15 +55,15 @@
 
 <div class="mobile-menu" role="dialog" aria-modal="true" aria-label="Site navigation" data-mobile-menu hidden>
   <div class="mobile-menu__top">
-    <img src="/assets/img/logo-horizontal-reversed.png" alt="Pigeon Hill Advisory">
+    <img src="./assets/img/logo-horizontal-reversed.png" alt="Pigeon Hill Advisory">
     <button type="button" class="btn btn--text" data-menu-close>Close</button>
   </div>
   <div class="mobile-menu__links">
-    <a href="/index.html#about">About Michael Shelton-Agar</a>
-    <a href="/index.html#expertise">Expertise</a>
-    <a href="/index.html#approach">Approach</a>
-    <a href="/index.html#perspectives">Perspectives</a>
-    <a href="/index.html#contact" class="is-contact">Contact</a>
+    <a href="./index.html#about">About Michael Shelton-Agar</a>
+    <a href="./index.html#expertise">Expertise</a>
+    <a href="./index.html#approach">Approach</a>
+    <a href="./index.html#perspectives">Perspectives</a>
+    <a href="./index.html#contact" class="is-contact">Contact</a>
   </div>
 </div>
 
@@ -68,10 +71,9 @@
   <div class="notfound">
     <p class="notfound__code">Error 404</p>
     <h1 class="notfound__title">This page could not be found.</h1>
-    <p class="notfound__body">The address may have changed, or the page may no longer exist. The main pages are below, and we are glad to help directly if it is easier.</p>
+    <p class="notfound__body">The address may have changed, or the page may no longer exist.</p>
     <div class="notfound__links">
-      <a href="/index.html" class="btn btn--solid btn--md">Return home</a>
-      <a href="mailto:talkto@pigeonhilladvisory.co.uk" class="btn btn--outline btn--md">Get in touch</a>
+      <a href="./index.html" class="btn btn--solid btn--md">Return home</a>
     </div>
   </div>
 </main>
@@ -80,12 +82,12 @@
   <div class="site-footer__inner">
     <div class="site-footer__top">
       <div class="site-footer__brand">
-        <a href="/index.html" aria-label="Pigeon Hill Advisory — home"><img src="/assets/img/logo-horizontal-reversed.png" alt="Pigeon Hill Advisory"></a>
+        <a href="./index.html" aria-label="Pigeon Hill Advisory — home"><img src="./assets/img/logo-horizontal-reversed.png" alt="Pigeon Hill Advisory"></a>
         <a href="mailto:talkto@pigeonhilladvisory.co.uk">talkto@pigeonhilladvisory.co.uk</a>
       </div>
       <div class="site-footer__links">
-        <a href="/privacy-policy.html">Privacy Policy</a>
-        <a href="/cookie-policy.html">Cookie Policy</a>
+        <a href="./privacy-policy.html">Privacy Policy</a>
+        <a href="./cookie-policy.html">Cookie Policy</a>
         <button type="button" data-cookie-settings>Cookie settings</button>
         <a href="https://www.linkedin.com/in/michael-shelton-agar-573106a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
@@ -137,6 +139,6 @@
   </div>
 </div>
 
-<script src="/assets/js/main.js"></script>
+<script src="./assets/js/main.js"></script>
 </body>
 </html>
