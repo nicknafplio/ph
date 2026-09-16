@@ -1,14 +1,11 @@
 (function () {
   'use strict';
 
-  var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   /* ---------------- Hero watermark parallax ---------------- */
-  // Drifting the dove at a fraction of scroll speed reads as depth. Reduce-motion opts
-  // out entirely: this is the vestibular-trigger kind of movement, not a colour fade.
+  // Drifting the dove at a fraction of scroll speed reads as depth.
   var parallaxEl = document.querySelector('[data-parallax]');
   var parallaxHero = parallaxEl && parallaxEl.closest('.hero');
-  if (parallaxHero && !reducedMotion) {
+  if (parallaxHero) {
     var parallaxTicking = false;
 
     var updateParallax = function () {
@@ -129,7 +126,7 @@
   var revealEls = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
   var reveal = function (el) { el.classList.add('is-visible'); };
 
-  if (!reducedMotion && 'IntersectionObserver' in window) {
+  if ('IntersectionObserver' in window) {
     var observerReported = false;
     var io = new IntersectionObserver(function (entries) {
       observerReported = true;
@@ -183,7 +180,7 @@
     // users opt out of the movement altogether.
     var resetAutoplay = function () {
       stopAutoplay();
-      if (reducedMotion || autoplayPaused || document.hidden || cards.length < 2) return;
+      if (autoplayPaused || document.hidden || cards.length < 2) return;
       autoplayTimeout = setTimeout(function () {
         goToQuote((quoteIndex + 1) % cards.length);
       }, AUTOPLAY_MS);
@@ -193,7 +190,7 @@
       i = Math.max(0, Math.min(cards.length - 1, i));
       setActive(i);
       var card = cards[i];
-      if (card) carousel.scrollTo({ left: card.offsetLeft, behavior: reducedMotion ? 'auto' : 'smooth' });
+      if (card) carousel.scrollTo({ left: card.offsetLeft, behavior: 'smooth' });
       resetAutoplay();
     };
 

@@ -1,6 +1,5 @@
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;scroll-behavior:smooth}
-@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
 /* The nav is fixed at 88px, so an anchor target landing at y=0 sits underneath it. */
 section[id]{scroll-margin-top:112px}
 body{margin:0;background:var(--surface-page);color:var(--text-body);font:var(--type-body);text-wrap:pretty;font-family:var(--font-body)}

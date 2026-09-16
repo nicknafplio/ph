@@ -23,10 +23,6 @@
 .reveal--d1{transition-delay:var(--stagger-step)}
 .reveal--d2{transition-delay:calc(var(--stagger-step) * 2)}
 .reveal--d3{transition-delay:calc(var(--stagger-step) * 3)}
-@media (prefers-reduced-motion:reduce){
-  .reveal{opacity:1;transform:none;transition:none}
-  .reveal--d1,.reveal--d2,.reveal--d3{transition-delay:0s}
-}
 
 /* ================= Buttons ================= */
 .btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-body);font-size:var(--size-caption);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);border-radius:var(--radius-sm);cursor:pointer;text-decoration:none;transition:color var(--duration-fast) var(--ease-quiet),background-color var(--duration-fast) var(--ease-quiet),border-color var(--duration-fast) var(--ease-quiet),transform var(--duration-fast) var(--ease-quiet);white-space:nowrap;background:transparent;border:1px solid transparent}
