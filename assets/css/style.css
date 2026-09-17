@@ -83,6 +83,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .checkbox__label{font:var(--type-body-sm);color:var(--text-secondary)}
 .checkbox--dark .checkbox__label{color:var(--text-on-inverse)}
 .checkbox input:focus-visible + .checkbox__box{outline:2px solid var(--focus-ring);outline-offset:3px}
+.checkbox__link{color:white;text-decoration:underline}
 
 .form-error{font:var(--type-caption);color:#e3b3ac}
 
