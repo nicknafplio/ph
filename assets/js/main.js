@@ -349,20 +349,15 @@
   var panel = document.querySelector('[data-cookie-panel]');
   var analyticsToggle = document.querySelector('[data-cookie-analytics-toggle]');
   var cookieSettingsLinks = document.querySelectorAll('[data-cookie-settings]');
-  var gaLoaded = false;
 
-  var loadAnalytics = function () {
-    if (gaLoaded) return;
-    gaLoaded = true;
-    var GA_ID = 'G-QL5EXM8TCN';
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-    document.head.appendChild(s);
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () { window.dataLayer.push(arguments); };
-    window.gtag('js', new Date());
-    window.gtag('config', GA_ID);
+  // gtag.js itself is loaded unconditionally from <head>, in denied-by-default Consent
+  // Mode, so Google can detect the tag. This banner only ever flips that consent state —
+  // it never loads or removes the script — so the _ga cookies still depend on the choice
+  // made here.
+  var updateAnalyticsConsent = function (granted) {
+    if (window.gtag) {
+      window.gtag('consent', 'update', { analytics_storage: granted ? 'granted' : 'denied' });
+    }
   };
 
   var saveConsent = function (analytics) {
@@ -389,7 +384,7 @@
     var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
     if (saved && typeof saved.analytics === 'boolean') {
       consentAnalytics = saved.analytics;
-      if (consentAnalytics) loadAnalytics();
+      updateAnalyticsConsent(consentAnalytics);
     } else {
       showBanner(true);
     }
@@ -402,7 +397,7 @@
     document.querySelectorAll('[data-cookie-accept]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         saveConsent(true);
-        loadAnalytics();
+        updateAnalyticsConsent(true);
         consentAnalytics = true;
         showBanner(false);
         showPanel(false);
@@ -412,6 +407,7 @@
     document.querySelectorAll('[data-cookie-reject]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         saveConsent(false);
+        updateAnalyticsConsent(false);
         consentAnalytics = false;
         showBanner(false);
         showPanel(false);
@@ -441,7 +437,7 @@
       btn.addEventListener('click', function () {
         var analytics = analyticsToggle ? analyticsToggle.checked : false;
         saveConsent(analytics);
-        if (analytics) loadAnalytics();
+        updateAnalyticsConsent(analytics);
         consentAnalytics = analytics;
         showPanel(false);
       });
