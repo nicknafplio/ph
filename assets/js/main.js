@@ -316,33 +316,6 @@
     resetAutoplay();
   }
 
-  /* ---------------- Contact form ---------------- */
-  var form = document.querySelector('[data-contact-form]');
-  if (form) {
-    var errorEl = document.querySelector('[data-form-error]');
-    var confirmEl = document.querySelector('[data-form-confirm]');
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var name = form.elements['name'].value.trim();
-      var email = form.elements['email'].value.trim();
-      var message = form.elements['message'].value.trim();
-      var consent = form.elements['consent'].checked;
-
-      if (!name || !email || !message || !consent) {
-        if (errorEl) {
-          errorEl.textContent = 'Please complete every field and confirm the privacy notice.';
-          errorEl.hidden = false;
-        }
-        return;
-      }
-
-      if (errorEl) errorEl.hidden = true;
-      form.hidden = true;
-      if (confirmEl) confirmEl.hidden = false;
-    });
-  }
-
   /* ---------------- Cookie consent ---------------- */
   var STORAGE_KEY = 'ph_cookie_consent';
   var banner = document.querySelector('[data-cookie-banner]');

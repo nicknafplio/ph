@@ -85,8 +85,6 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .checkbox input:focus-visible + .checkbox__box{outline:2px solid var(--focus-ring);outline-offset:3px}
 .checkbox__link{color:white;text-decoration:underline}
 
-.form-error{font:var(--type-caption);color:#e3b3ac}
-
 /* ================= Definition list (expertise) ================= */
 .deflist{margin:0;border-top:1px solid var(--rule-hairline)}
 .deflist__row{display:grid;grid-template-columns:1fr 1.4fr;gap:var(--space-6);padding:var(--space-5) 0;border-bottom:1px solid var(--rule-hairline);align-items:baseline}
@@ -221,9 +219,6 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 }
 
 /* ================= Contact ================= */
-.contact-confirm{border:1px solid var(--rule-on-inverse);border-radius:var(--radius-sm);padding:40px;background:rgba(237,228,216,0.04)}
-.contact-confirm p:first-child{font:var(--type-heading-3);color:var(--text-on-inverse-strong);margin:0 0 12px}
-.contact-confirm p:last-child{font:var(--type-body);color:var(--text-on-inverse);margin:0}
 .contact-form{display:flex;flex-direction:column;gap:24px}
 
 /* ================= Footer ================= */

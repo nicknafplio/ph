@@ -321,30 +321,24 @@
         </div>
 
         <div class="reveal reveal--d1">
-          <div class="contact-confirm" data-form-confirm hidden>
-            <p>Thank you.</p>
-            <p>Your message has been received. Michael will be in touch directly.</p>
-          </div>
-
-          <form class="contact-form" data-contact-form novalidate>
+          <form class="contact-form" action="https://usebasin.com/f/d5da3bb803e0" method="post">
             <div class="field">
               <label class="field__label field__label--dark" for="ph-name">Name</label>
-              <input class="field__control field__control--dark" type="text" id="ph-name" name="name" autocomplete="name">
+              <input class="field__control field__control--dark" type="text" id="ph-name" name="name" autocomplete="name" required>
             </div>
             <div class="field">
               <label class="field__label field__label--dark" for="ph-email">Email</label>
-              <input class="field__control field__control--dark" type="email" id="ph-email" name="email" autocomplete="email">
+              <input class="field__control field__control--dark" type="email" id="ph-email" name="email" autocomplete="email" required>
             </div>
             <div class="field">
               <label class="field__label field__label--dark" for="ph-message">Message</label>
-              <textarea class="field__control field__control--dark" id="ph-message" name="message" rows="4"></textarea>
+              <textarea class="field__control field__control--dark" id="ph-message" name="message" rows="4" required></textarea>
             </div>
             <label class="checkbox checkbox--dark" for="ph-consent">
-              <input type="checkbox" id="ph-consent" name="consent">
+              <input type="checkbox" id="ph-consent" name="consent" required>
               <span class="checkbox__box" aria-hidden="true"><span class="checkbox__tick"></span></span>
               <span class="checkbox__label">I have read and accept the <a href="./privacy-policy.html" class="checkbox__link">Privacy Policy</a>.</span>
             </label>
-            <div class="form-error" data-form-error hidden></div>
             <button type="submit" class="btn btn--solid btn--lg btn--dark" style="margin-top:8px">Start a conversation</button>
           </form>
         </div>
