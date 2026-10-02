@@ -316,6 +316,65 @@
     resetAutoplay();
   }
 
+  /* ---------------- Contact form ---------------- */
+  // Validation only gates the submit; a valid form is left to post natively to Basin.
+  var form = document.querySelector('[data-contact-form]');
+  if (form) {
+    var errorEl = document.querySelector('[data-form-error]');
+    var consentLabel = form.querySelector('.checkbox');
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    var fieldOk = function (name) {
+      var el = form.elements[name];
+      var v = el.value.trim();
+      return name === 'email' ? emailPattern.test(v) : v !== '';
+    };
+
+    var clearInvalid = function (el) { el.classList.remove('is-invalid'); el.removeAttribute('aria-invalid'); };
+
+    ['name', 'email', 'message'].forEach(function (n) {
+      form.elements[n].addEventListener('input', function () { clearInvalid(form.elements[n]); });
+    });
+    form.elements['consent'].addEventListener('change', function () {
+      if (consentLabel) consentLabel.classList.remove('is-invalid');
+    });
+
+    form.addEventListener('submit', function (e) {
+      var firstBad = null;
+      var problems = [];
+
+      ['name', 'email', 'message'].forEach(function (n) {
+        var el = form.elements[n];
+        if (fieldOk(n)) { clearInvalid(el); return; }
+        el.classList.add('is-invalid');
+        el.setAttribute('aria-invalid', 'true');
+        if (!firstBad) firstBad = el;
+        problems.push(n === 'email' && el.value.trim() ? 'a valid email address' : 'your ' + n);
+      });
+
+      var consent = form.elements['consent'];
+      if (!consent.checked) {
+        if (consentLabel) consentLabel.classList.add('is-invalid');
+        if (!firstBad) firstBad = consent;
+        problems.push('confirmation that you accept the Privacy Policy');
+      } else if (consentLabel) {
+        consentLabel.classList.remove('is-invalid');
+      }
+
+      if (!problems.length) {
+        if (errorEl) errorEl.hidden = true;
+        return;
+      }
+
+      e.preventDefault();
+      if (errorEl) {
+        errorEl.textContent = 'Please provide ' + problems.join(', ').replace(/, ([^,]*)$/, ' and $1') + '.';
+        errorEl.hidden = false;
+      }
+      firstBad.focus();
+    });
+  }
+
   /* ---------------- Cookie consent ---------------- */
   var STORAGE_KEY = 'ph_cookie_consent';
   var banner = document.querySelector('[data-cookie-banner]');
