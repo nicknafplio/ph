@@ -65,6 +65,7 @@
 --text-muted-on-inverse:var(--ink-300);
 --text-on-inverse:var(--bone-400);
 --text-on-inverse-strong:#ffffff;
+--cities-text:rgba(237,228,216,.58); /* city names: a step back so they do not compete with the heading and copy beside them */
 --text-on-accent:var(--forest-900);
 --text-accent:var(--gold-800);
 --text-accent-on-inverse:var(--gold-500);

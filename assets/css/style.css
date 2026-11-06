@@ -45,7 +45,7 @@
 
 .btn--hero{background:transparent;color:var(--text-on-inverse-strong);border:2px solid var(--gold-500);border-radius:5px;transition-duration:var(--duration-fade),var(--duration-fade),var(--duration-fade),var(--duration-fast)}
 
-.carousel-arrow{width:44px;height:44px;min-height:44px;padding:0;background:transparent;border-color:var(--forest-700);color:var(--forest-700);font-size:1.125rem;letter-spacing:0}
+.carousel-arrow{width:44px;height:44px;min-height:44px;padding:0;background:var(--gold-500);border-color:var(--gold-500);color:#fff;font-size:1.125rem;letter-spacing:0}
 .carousel-arrow:focus-visible{background:var(--forest-700);border-color:var(--forest-700);color:#fff}
 .carousel-arrow__icon[hidden]{display:none}
 
@@ -185,7 +185,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .about-strapline{font:var(--type-display-3);color:var(--text-display);margin:0;max-width:16ch}
 .about-body p{font:var(--type-body);color:var(--text-secondary);max-width:var(--measure-prose)}
 .about-portrait-wrap{flex:0 0 auto;padding:5px}
-.about-portrait{width:280px;max-width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:var(--radius-md);filter:saturate(.94) sepia(.06)}
+.about-portrait{width:280px;max-width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:10px;filter:saturate(.94) sepia(.06)}
 .about-bio h2{font:var(--type-heading-1);color:var(--text-display);margin:0 0 14px}
 .about-bio p{font:var(--type-body);color:var(--text-secondary);max-width:var(--measure-prose);margin:0 0 18px}
 
@@ -199,8 +199,8 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .approach-cities{border-top:1px solid var(--rule-on-inverse)}
 .approach-cities__row{display:block}
 /* The four cities are the section's centrepiece: a ruled list at display scale, like the Expertise list. */
-.approach-cities__city{display:block;padding:14px 0 12px;border-bottom:1px solid var(--rule-on-inverse);font:var(--weight-light) clamp(1.75rem,1.2rem + 2vw,2.75rem)/1.15 var(--font-display);letter-spacing:var(--tracking-display);color:var(--text-on-inverse-strong)}
-.approach-cities__note{font:var(--type-body-sm);color:var(--text-on-inverse);margin:22px 0 0;max-width:32ch}
+.approach-cities__city{display:block;padding:14px 0 12px;border-bottom:1px solid var(--rule-on-inverse);font:var(--weight-light) clamp(1.75rem,1.2rem + 2vw,2.75rem)/1.15 var(--font-display);letter-spacing:var(--tracking-display);color:var(--cities-text)}
+.approach-cities__note{font:var(--type-body-sm);color:var(--text-on-inverse);margin:22px 0 0}
 
 /* ================= Perspectives / carousel ================= */
 .perspectives-head{margin-bottom:48px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between}
