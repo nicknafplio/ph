@@ -12,119 +12,161 @@
 .section__watermark{position:absolute;height:460px;opacity:.05;pointer-events:none}
 .section__watermark--tr{right:-120px;top:-90px}
 .section__watermark--bl{left:-140px;bottom:-100px;height:420px}
+/* --parallax-y is driven from JS; the -50% keeps it centred regardless. */
+.hero .section__watermark--tr{height:920px;top:50%;right:-260px;transform:translateY(-50%) translateY(var(--parallax-y,0px));will-change:transform}
 
 .row{display:flex;flex-wrap:wrap;gap:64px}
 .row > *{flex:1 1 380px;min-width:0}
 
-.reveal{opacity:0;transform:translateY(var(--reveal-distance,18px));transition:opacity var(--duration-reveal) var(--ease-quiet),transform var(--duration-reveal) var(--ease-quiet)}
+.reveal{opacity:0;transform:translateY(var(--reveal-distance));transition:opacity var(--duration-reveal) var(--ease-quiet),transform var(--duration-reveal) var(--ease-quiet)}
 .reveal.is-visible{opacity:1;transform:none}
-.reveal--d1{transition-delay:120ms}
-.reveal--d2{transition-delay:240ms}
-.reveal--d3{transition-delay:360ms}
-@media (prefers-reduced-motion:reduce){
-  .reveal{opacity:1;transform:none;transition:none}
-}
+.reveal--d1{transition-delay:var(--stagger-step)}
+.reveal--d2{transition-delay:calc(var(--stagger-step) * 2)}
+.reveal--d3{transition-delay:calc(var(--stagger-step) * 3)}
 
 /* ================= Buttons ================= */
-.btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-body);font-size:var(--size-caption);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);border-radius:var(--radius-sm);cursor:pointer;text-decoration:none;transition:color var(--duration-fast) var(--ease-quiet),background-color var(--duration-fast) var(--ease-quiet),border-color var(--duration-fast) var(--ease-quiet);white-space:nowrap;background:transparent;border:1px solid transparent}
+.btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-body);font-size:var(--size-caption);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);border-radius:var(--radius-sm);cursor:pointer;text-decoration:none;transition:color var(--duration-fast) var(--ease-quiet),background-color var(--duration-fast) var(--ease-quiet),border-color var(--duration-fast) var(--ease-quiet),transform var(--duration-fast) var(--ease-quiet);white-space:nowrap;background:transparent;border:1px solid transparent}
 .btn--sm{padding:7px 18px;font-size:11px}
 .btn--md{padding:11px 26px}
 .btn--lg{padding:15px 38px;font-size:var(--size-body-sm)}
 .btn:disabled{opacity:.42;pointer-events:none}
 .btn--full{width:100%}
+/* Touch has no hover, so the press state is the only acknowledgement a tap ever gets. */
+.btn:active{transform:translateY(1px)}
 
 .btn--solid{background:var(--forest-700);color:var(--text-on-inverse-strong)}
-.btn--solid:hover{background:var(--forest-800)}
 .btn--solid.btn--dark{background:var(--gold-500);color:var(--text-on-accent)}
-.btn--solid.btn--dark:hover{background:var(--gold-400)}
 
 .btn--outline{color:var(--text-body);border-color:var(--rule-strong)}
-.btn--outline:hover{color:var(--text-accent);border-color:var(--rule-accent)}
 .btn--outline.btn--dark{color:var(--text-on-inverse);border-color:var(--rule-on-inverse)}
-.btn--outline.btn--dark:hover{color:var(--gold-500);border-color:var(--gold-500)}
 
 .btn--text{color:var(--text-body);padding:4px 0;letter-spacing:var(--tracking-eyebrow)}
 .btn--text.btn--dark{color:var(--text-on-inverse)}
-.btn--text:hover{color:var(--text-link-hover)}
 
-.carousel-arrow{background:var(--gold-500);border-color:var(--gold-500);color:#fff;transition:background-color var(--duration-base) var(--ease-quiet),border-color var(--duration-base) var(--ease-quiet)}
-.carousel-arrow:hover,.carousel-arrow:focus-visible{background:var(--forest-700);border-color:var(--forest-700)}
+.btn--hero{background:transparent;color:var(--text-on-inverse-strong);border:2px solid var(--gold-500);border-radius:5px;transition-duration:var(--duration-fade),var(--duration-fade),var(--duration-fade),var(--duration-fast)}
+
+.carousel-arrow{background:var(--gold-500);border-color:var(--gold-500);color:#fff}
+.carousel-arrow:focus-visible{background:var(--forest-700);border-color:var(--forest-700)}
 .carousel-arrow span{color:#fff}
+
+@media (hover:hover){
+  .btn--solid:hover{background:var(--forest-800)}
+  .btn--solid.btn--dark:hover{background:var(--gold-400)}
+  .btn--outline:hover{color:var(--text-accent);border-color:var(--rule-accent)}
+  .btn--outline.btn--dark:hover{color:var(--gold-500);border-color:var(--gold-500)}
+  .btn--text:hover{color:var(--text-link-hover)}
+  .carousel-arrow:hover{background:var(--forest-700);border-color:var(--forest-700)}
+  .btn--hero:hover{background:var(--gold-500);color:var(--text-on-accent);border-color:var(--gold-500)}
+}
 
 /* ================= Forms ================= */
 .field{display:block}
-.field__label{display:block;font:var(--type-caption);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);color:var(--text-muted);margin-bottom:var(--space-2)}
+.field__label{display:block;font:var(--type-caption);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);color:var(--text-muted);margin-bottom:var(--space-2);transition:color var(--duration-fast) var(--ease-quiet)}
 .field__label--dark{color:var(--text-on-inverse)}
-.field__control{width:100%;box-sizing:border-box;font:var(--type-body);color:var(--text-body);background:transparent;border:0;border-bottom:1px solid var(--border-field);border-radius:0;padding:10px 0;outline:none;transition:border-color var(--duration-fast) var(--ease-quiet);font-family:var(--font-body)}
+.field:focus-within .field__label{color:var(--text-accent)}
+.field:focus-within .field__label--dark{color:var(--gold-500)}
+.field__control{width:100%;box-sizing:border-box;font:var(--type-body);color:var(--text-body);background:transparent;border:0;border-bottom:1px solid var(--border-field);border-radius:0;padding:10px 0;outline:none;transition:border-color var(--duration-fast) var(--ease-quiet),box-shadow var(--duration-fast) var(--ease-quiet);font-family:var(--font-body)}
 .field__control--dark{color:var(--text-on-inverse-strong);border-bottom-color:var(--rule-on-inverse)}
-.field__control:focus{border-bottom-color:var(--border-field-focus)}
-.field__control--dark:focus{border-bottom-color:var(--gold-500)}
-.field__control.is-invalid{border-bottom-color:var(--status-critical)}
+/* box-shadow rather than border-width: doubles the rule's weight without reflowing the field. */
+.field__control:focus{border-bottom-color:var(--border-field-focus);box-shadow:0 1px 0 0 var(--border-field-focus)}
+.field__control--dark:focus{border-bottom-color:var(--gold-500);box-shadow:0 1px 0 0 var(--gold-500)}
+.field__control.is-invalid{border-bottom-color:var(--status-critical);box-shadow:0 1px 0 0 var(--status-critical)}
 textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 
 .checkbox{display:flex;gap:var(--space-3);align-items:flex-start;cursor:pointer}
 .checkbox input{position:absolute;opacity:0;width:1px;height:1px}
-.checkbox__box{width:16px;height:16px;flex:0 0 16px;margin-top:4px;border:1px solid var(--border-field);background:transparent;border-radius:var(--radius-hairline);display:grid;place-items:center;transition:all var(--duration-fast) var(--ease-quiet)}
+.checkbox__box{width:16px;height:16px;flex:0 0 16px;margin-top:4px;border:1px solid var(--border-field);background:transparent;border-radius:var(--radius-hairline);display:grid;place-items:center;transition:border-color var(--duration-fast) var(--ease-quiet),background-color var(--duration-fast) var(--ease-quiet)}
 .checkbox--dark .checkbox__box{border-color:var(--rule-on-inverse)}
 .checkbox input:checked + .checkbox__box{border-color:var(--gold-500);background:var(--gold-500)}
-.checkbox__tick{width:8px;height:4px;border-left:1.5px solid var(--forest-900);border-bottom:1.5px solid var(--forest-900);transform:rotate(-45deg) translate(1px,-1px);opacity:0}
-.checkbox input:checked + .checkbox__box .checkbox__tick{opacity:1}
+.checkbox__tick{width:8px;height:4px;border-left:1.5px solid var(--forest-900);border-bottom:1.5px solid var(--forest-900);transform:rotate(-45deg) translate(1px,-1px) scale(.5);opacity:0;transition:opacity var(--duration-fast) var(--ease-quiet),transform var(--duration-fast) var(--ease-quiet)}
+.checkbox input:checked + .checkbox__box .checkbox__tick{opacity:1;transform:rotate(-45deg) translate(1px,-1px) scale(1)}
 .checkbox__label{font:var(--type-body-sm);color:var(--text-secondary)}
 .checkbox--dark .checkbox__label{color:var(--text-on-inverse)}
 .checkbox input:focus-visible + .checkbox__box{outline:2px solid var(--focus-ring);outline-offset:3px}
+.checkbox__link{color:white;text-decoration:underline}
+.checkbox.is-invalid .checkbox__box{border-color:var(--status-critical)}
 
 .form-error{font:var(--type-caption);color:#e3b3ac}
 
 /* ================= Definition list (expertise) ================= */
 .deflist{margin:0;border-top:1px solid var(--rule-hairline)}
 .deflist__row{display:grid;grid-template-columns:1fr 1.4fr;gap:var(--space-6);padding:var(--space-5) 0;border-bottom:1px solid var(--rule-hairline);align-items:baseline}
+/* The list carries .reveal purely as the observer's trigger — the rows do the animating,
+   so the cascade fires once for the whole group. Staggering each row's own observer
+   instead would leave the lower rows sitting on screen waiting out their delay.
+   nth-child rather than numbered classes: adding or removing a row needs no markup
+   change, and the last rule caps the wait if the list ever grows. */
+.deflist.reveal{opacity:1;transform:none;transition:none}
+.deflist__row{opacity:0;transform:translateY(var(--reveal-distance));transition:opacity var(--duration-reveal) var(--ease-quiet),transform var(--duration-reveal) var(--ease-quiet)}
+.deflist.is-visible .deflist__row{opacity:1;transform:none}
+.deflist__row:nth-child(2){transition-delay:var(--stagger-step)}
+.deflist__row:nth-child(3){transition-delay:calc(var(--stagger-step) * 2)}
+.deflist__row:nth-child(4){transition-delay:calc(var(--stagger-step) * 3)}
+.deflist__row:nth-child(5){transition-delay:calc(var(--stagger-step) * 4)}
+.deflist__row:nth-child(n+6){transition-delay:calc(var(--stagger-step) * 5)}
 .deflist__term{font-family:var(--font-display);font-weight:var(--weight-regular);font-size:var(--size-heading-3);line-height:var(--leading-tight);color:var(--text-display);margin:0}
 .deflist__desc{margin:0;font:var(--type-body);color:var(--text-secondary)}
 @media (max-width:720px){.deflist__row{grid-template-columns:1fr;gap:var(--space-2)}}
 
 /* ================= Site header / nav ================= */
-.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;background:transparent;border-bottom:1px solid transparent;transition:background-color 420ms var(--ease-quiet),border-color 420ms var(--ease-quiet),opacity var(--duration-base) var(--ease-quiet)}
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;background:transparent;border-bottom:1px solid transparent;transition:background-color 420ms var(--ease-quiet),border-color 420ms var(--ease-quiet),opacity var(--duration-base) var(--ease-quiet),transform var(--duration-base) var(--ease-quiet)}
 .site-nav.is-scrolled{background:rgba(253,251,248,0.94);border-bottom-color:rgba(58,57,55,.14);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-.site-nav.is-hidden{opacity:0;pointer-events:none}
+/* Lifts away rather than dissolving in place, so the nav reads as leaving, not failing. */
+.site-nav.is-hidden{opacity:0;transform:translateY(-12px);pointer-events:none;transition-timing-function:var(--ease-exit)}
 .site-nav__inner{width:100%;max-width:var(--container-max);display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:88px;box-sizing:border-box}
 @media (max-width:720px){.site-nav__inner{padding:0 24px}}
 .site-nav__logo{display:block;border:0;line-height:0}
-.site-nav__logo img{display:block;width:auto;height:59px;transition:height var(--duration-base) var(--ease-quiet),opacity var(--duration-base) var(--ease-quiet)}
-.site-nav.is-scrolled .site-nav__logo img{height:50px}
+.site-nav__logo img{display:block;width:auto;height:44px;transition:height var(--duration-base) var(--ease-quiet),opacity var(--duration-base) var(--ease-quiet)}
+.site-nav.is-scrolled .site-nav__logo img{height:38px}
 .site-nav__logo img.is-hidden-logo{position:absolute;opacity:0;pointer-events:none}
 
 .site-nav__links{display:flex;align-items:center;gap:40px}
-.site-nav__link{font:var(--type-body-sm);text-decoration:none;border-bottom:1px solid transparent;color:var(--text-on-inverse-strong)}
+.site-nav__link{position:relative;font:var(--type-body-sm);text-decoration:none;color:var(--text-on-inverse-strong);transition:color 0.5s ease;padding-bottom:2px}
+/* Two-layer underline: a high-contrast base line snaps in first, then gold sweeps
+   over it right-to-left, so the line reads clearly before the accent colour arrives. */
+.site-nav__link::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background-color:#fff;opacity:0;transition:opacity 0.2s ease}
+.site-nav__link::after{content:'';position:absolute;bottom:0;right:0;width:100%;height:1px;background-color:var(--gold-500);transform:scaleX(0);transform-origin:right;transition:transform 0.5s ease}
 .site-nav.is-scrolled .site-nav__link{color:var(--text-body)}
-.site-nav__link:hover{color:var(--gold-700);border-bottom-color:var(--gold-500)}
+.site-nav.is-scrolled .site-nav__link::before{background-color:#000}
 
 /* Nav buttons (Contact, Menu) sit on a transparent/forest ground until scrolled,
    then on a bone ground — recolour them the same way the plain nav links are. */
-.site-nav__inner .btn--outline{color:var(--text-on-inverse);border-color:var(--rule-on-inverse)}
-.site-nav__inner .btn--outline:hover{color:var(--gold-500);border-color:var(--gold-500)}
+.site-nav__inner .btn--outline{color:var(--text-on-inverse);border-color:var(--rule-on-inverse);transition-duration:var(--duration-fade),var(--duration-fade),var(--duration-fade),var(--duration-fast)}
 .site-nav.is-scrolled .site-nav__inner .btn--outline{color:var(--text-body);border-color:var(--rule-strong)}
-.site-nav.is-scrolled .site-nav__inner .btn--outline:hover{color:var(--text-accent);border-color:var(--rule-accent)}
 
 .site-nav__inner .btn--text{color:var(--text-on-inverse)}
 .site-nav.is-scrolled .site-nav__inner .btn--text{color:var(--text-body)}
-.site-nav__inner .btn--text:hover{color:var(--gold-500)}
 
-.site-nav__menu-btn{display:none}
+@media (hover:hover){
+  .site-nav__link:hover{color:#fff}
+  .site-nav__link:hover::before{opacity:1}
+  .site-nav__link:hover::after{transform:scaleX(1)}
+  .site-nav.is-scrolled .site-nav__link:hover{color:var(--gold-700)}
+  .site-nav__inner .btn--outline:hover{color:var(--gold-500);border-color:var(--gold-500)}
+  .site-nav.is-scrolled .site-nav__inner .btn--outline:hover{color:var(--text-accent);border-color:var(--rule-accent)}
+  .site-nav__inner .btn--text:hover{color:var(--gold-500)}
+}
+
+.site-nav__menu-btn{display:none;padding-left:.5rem;padding-right:.5rem}
 
 @media (max-width:899px){
   .site-nav__links{display:none}
   .site-nav__menu-btn{display:inline-flex}
 }
 
-.mobile-menu{position:fixed;inset:0;z-index:1200;background:var(--surface-inverse-deep);display:flex;flex-direction:column}
+.mobile-menu{position:fixed;inset:0;z-index:1200;background:rgba(1,37,31,.8);display:flex;flex-direction:column;opacity:0;transition:opacity var(--duration-fade) var(--ease-quiet)}
+.mobile-menu.is-open{opacity:1}
 .mobile-menu[hidden]{display:none}
 .mobile-menu__top{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:88px;flex:0 0 auto}
-.mobile-menu__top .btn--text{color:var(--text-on-inverse)}
-.mobile-menu__top .btn--text:hover{color:var(--gold-500)}
-.mobile-menu__top img{height:36px;width:auto}
-.mobile-menu__links{display:flex;flex-direction:column;gap:28px;padding:24px 24px 48px;overflow-y:auto}
+.mobile-menu__top .btn--text{color:var(--text-on-inverse);padding-left:.5rem;padding-right:.5rem}
+.mobile-menu__top img{height:44px;width:auto}
+/* Taking the space the header leaves lets the links sit on the middle of it. */
+.mobile-menu__links{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:28px;padding:24px 24px 88px;overflow-y:auto}
 .mobile-menu__links a{font:var(--type-heading-3);color:var(--text-on-inverse-strong);text-decoration:none;border-bottom:0}
 .mobile-menu__links a.is-contact{color:var(--gold-500)}
+@media (hover:hover){
+  .mobile-menu__top .btn--text:hover{color:var(--gold-500)}
+}
 
 /* ================= Hero ================= */
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:0;overflow:hidden}
@@ -160,20 +202,26 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .perspectives-head{margin-bottom:48px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between}
 .perspectives-controls{display:flex;gap:12px}
 
-.carousel{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;margin:0 -8px;scrollbar-width:none}
+/* scroll-behavior inherits, and the smooth value on html would re-animate every frame
+   of the scripted slide — a lagging chase that overshoots the card. */
+.carousel{display:flex;gap:24px;overflow-x:auto;scroll-behavior:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none}
 .carousel::-webkit-scrollbar{display:none}
-.carousel__card{flex:0 0 78%;max-width:440px;scroll-snap-align:start;border:1px solid var(--rule-hairline);border-radius:var(--radius-sm);padding:40px 36px;background:var(--surface-card)}
+.carousel__card{flex:0 0 calc((100% - 24px) / 2);scroll-snap-align:start;border:1px solid var(--rule-hairline);border-radius:var(--radius-sm);padding:40px 36px;background:var(--surface-card)}
 .carousel__quote{margin:0 0 24px;font:var(--type-heading-3);font-weight:var(--weight-regular);color:var(--text-display);line-height:var(--leading-heading)}
 .carousel__attribution{font:var(--type-caption);text-transform:uppercase;letter-spacing:0.16em;color:var(--text-muted)}
 
-.carousel-dots{display:flex;gap:10px;justify-content:center;margin-top:28px}
-.carousel-dots button{width:8px;height:8px;border-radius:50%;border:0;padding:0;cursor:pointer;background:rgba(58,57,55,.22);transition:background-color var(--duration-base) var(--ease-quiet)}
-.carousel-dots button.is-active{background:var(--gold-500)}
+/* 24px buttons carry an 8px dot: the target meets WCAG 2.5.8 without the dots growing. */
+.carousel-dots{display:flex;gap:0;justify-content:center;margin-top:20px}
+.carousel-dots button{width:24px;height:24px;border:0;padding:0;margin:0;cursor:pointer;background:transparent;border-radius:50%;display:grid;place-items:center}
+.carousel-dots button::before{content:"";width:8px;height:8px;border-radius:50%;background:rgba(58,57,55,.22);transition:background-color var(--duration-base) var(--ease-quiet),transform var(--duration-base) var(--ease-quiet)}
+.carousel-dots button.is-active::before{background:var(--gold-500);transform:scale(1.25)}
+.carousel-dots button:focus-visible{outline:2px solid var(--focus-ring);outline-offset:-2px}
+@media (hover:hover){
+  .carousel-dots button:hover::before{background:rgba(58,57,55,.45)}
+  .carousel-dots button.is-active:hover::before{background:var(--gold-500)}
+}
 
 /* ================= Contact ================= */
-.contact-confirm{border:1px solid var(--rule-on-inverse);border-radius:var(--radius-sm);padding:40px;background:rgba(237,228,216,0.04)}
-.contact-confirm p:first-child{font:var(--type-heading-3);color:var(--text-on-inverse-strong);margin:0 0 12px}
-.contact-confirm p:last-child{font:var(--type-body);color:var(--text-on-inverse);margin:0}
 .contact-form{display:flex;flex-direction:column;gap:24px}
 
 /* ================= Footer ================= */
@@ -184,9 +232,11 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .site-footer__brand img{height:54px;width:auto;margin-bottom:18px}
 .site-footer__brand a{display:block;font:var(--type-body-sm);color:var(--text-on-inverse);text-decoration:none;border-bottom:0}
 .site-footer__links{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start;font:var(--type-body-sm)}
-.site-footer__links a,.site-footer__links button{color:var(--text-on-inverse);text-decoration:none;border-bottom:0;background:none;border:0;padding:0;cursor:pointer;font:var(--type-body-sm);font-family:var(--font-body)}
-.site-footer__links a:hover,.site-footer__links button:hover{color:var(--gold-500)}
+.site-footer__links a,.site-footer__links button{color:var(--text-on-inverse);text-decoration:none;border-bottom:0;background:none;border:0;padding:0;cursor:pointer;font:var(--type-body-sm);font-family:var(--font-body);transition:color var(--duration-fast) var(--ease-quiet)}
 .site-footer__links a.is-current{color:var(--gold-500)}
+@media (hover:hover){
+  .site-footer__links a:hover,.site-footer__links button:hover{color:var(--gold-500)}
+}
 .site-footer__copy{padding-top:24px;font:var(--type-caption);text-transform:uppercase;letter-spacing:0.16em;color:var(--text-muted)}
 
 /* ================= Cookie banner + panel ================= */
@@ -224,3 +274,10 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .legal table{width:100%;border-collapse:collapse;margin:0 0 20px}
 .legal th,.legal td{text-align:left;font:var(--type-body-sm);color:var(--text-secondary);padding:10px 12px;border-bottom:1px solid var(--rule-hairline)}
 .legal th{color:var(--text-display);font-weight:var(--weight-medium)}
+
+/* ================= Small-screen overrides ================= */
+@media (max-width:720px){
+  /* !important is required: several h2s carry an inline `font:` shorthand that sets 56px. */
+  h2{font-size:38px !important}
+  .carousel__card{flex:0 0 100%;max-width:100%}
+}

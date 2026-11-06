@@ -1,13 +1,6 @@
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Light.ttf") format("truetype");font-weight:300;font-style:normal;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-LightItalic.ttf") format("truetype");font-weight:300;font-style:italic;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Italic.ttf") format("truetype");font-weight:400;font-style:italic;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Medium.ttf") format("truetype");font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-MediumItalic.ttf") format("truetype");font-weight:500;font-style:italic;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-SemiBold.ttf") format("truetype");font-weight:600;font-style:normal;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-SemiBoldItalic.ttf") format("truetype");font-weight:600;font-style:italic;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Bold.ttf") format("truetype");font-weight:700;font-style:normal;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-BoldItalic.ttf") format("truetype");font-weight:700;font-style:italic;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Light.woff2") format("woff2"),url("../fonts/CormorantGaramond-Light.ttf") format("truetype");font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Regular.woff2") format("woff2"),url("../fonts/CormorantGaramond-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Medium.woff2") format("woff2"),url("../fonts/CormorantGaramond-Medium.ttf") format("truetype");font-weight:500;font-style:normal;font-display:swap}
 
 :root{
 /* ---- Brand core ---- */
@@ -195,18 +188,13 @@
 /* ---- Motion ---- */
 --ease-quiet:cubic-bezier(.22,.61,.36,1);
 --ease-in-out:cubic-bezier(.4,0,.2,1);
+--ease-exit:cubic-bezier(.4,0,1,1);
 --duration-fast:160ms;
 --duration-base:280ms;
 --duration-slow:520ms;
---duration-reveal:900ms;
+--duration-reveal:1.5s;
+--duration-fade:1s;
 --transition-quiet:all var(--duration-base) var(--ease-quiet);
---reveal-distance:14px;
+--reveal-distance:28px;
+--stagger-step:300ms;
 }
-
-@media (prefers-reduced-motion:reduce){:root{
---duration-fast:0ms;
---duration-base:0ms;
---duration-slow:0ms;
---duration-reveal:0ms;
---reveal-distance:0px;
-}}
