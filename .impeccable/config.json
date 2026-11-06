@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-06T17:03:45.995Z",
+        "reason": "user confirmed: cream/bone page background is the intentional brand colour"
+      }
+    ]
+  }
+}
