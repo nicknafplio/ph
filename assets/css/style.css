@@ -92,7 +92,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 /* ================= Definition list (expertise) ================= */
 .deflist{margin:0;border-top:1px solid var(--rule-hairline)}
 .deflist__row{display:grid;grid-template-columns:1fr 1.4fr;gap:var(--space-6);padding:var(--space-5) 0;border-bottom:1px solid var(--rule-hairline);align-items:baseline}
-/* The list carries .reveal purely as the observer's trigger — the rows do the animating,
+/* The list carries .reveal purely as the observer's trigger - the rows do the animating,
    so the cascade fires once for the whole group. Staggering each row's own observer
    instead would leave the lower rows sitting on screen waiting out their delay.
    nth-child rather than numbered classes: adding or removing a row needs no markup
@@ -131,7 +131,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .site-nav.is-scrolled .site-nav__link::before{background-color:#000}
 
 /* Nav buttons (Contact, Menu) sit on a transparent/forest ground until scrolled,
-   then on a bone ground — recolour them the same way the plain nav links are. */
+   then on a bone ground - recolour them the same way the plain nav links are. */
 .site-nav__inner .btn--outline{color:var(--text-on-inverse);border-color:var(--rule-on-inverse);transition-duration:var(--duration-fade),var(--duration-fade),var(--duration-fade),var(--duration-fast)}
 .site-nav.is-scrolled .site-nav__inner .btn--outline{color:var(--text-body);border-color:var(--rule-strong)}
 
@@ -204,7 +204,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .perspectives-controls{display:flex;gap:12px}
 
 /* scroll-behavior inherits, and the smooth value on html would re-animate every frame
-   of the scripted slide — a lagging chase that overshoots the card. */
+   of the scripted slide - a lagging chase that overshoots the card. */
 .carousel{display:flex;gap:24px;overflow-x:auto;scroll-behavior:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none}
 .carousel::-webkit-scrollbar{display:none}
 .carousel__card{flex:0 0 calc((100% - 24px) / 2);scroll-snap-align:start;border:1px solid var(--rule-hairline);border-radius:var(--radius-sm);padding:40px 36px;background:var(--surface-card)}

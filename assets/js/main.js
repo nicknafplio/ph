@@ -88,7 +88,7 @@
       if (!menuIsOpen()) return;
       mobileMenu.classList.remove('is-open');
       document.body.style.overflow = '';
-      // Read the fade length off the CSS rather than repeating it here — hiding the
+      // Read the fade length off the CSS rather than repeating it here - hiding the
       // panel early would cut the fade-out dead.
       menuCloseTimer = setTimeout(function () {
         mobileMenu.hidden = true;
@@ -439,8 +439,8 @@
   var cookieSettingsLinks = document.querySelectorAll('[data-cookie-settings]');
 
   // gtag.js itself is loaded unconditionally from <head>, in denied-by-default Consent
-  // Mode, so Google can detect the tag. This banner only ever flips that consent state —
-  // it never loads or removes the script — so the _ga cookies still depend on the choice
+  // Mode, so Google can detect the tag. This banner only ever flips that consent state,
+  // it never loads or removes the script - so the _ga cookies still depend on the choice
   // made here.
   var updateAnalyticsConsent = function (granted) {
     if (window.gtag) {
