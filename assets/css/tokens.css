@@ -23,6 +23,7 @@
 
 /* ---- Gold ramp ---- */
 --gold-700:#9d7c40;
+--gold-800:#7d5f26; /* gold for text on light grounds: 4.7:1 on bone, 5.9:1 on white */
 --gold-600:#b9995a;
 --gold-500:#cfb378;
 --gold-400:#ddc79a;
@@ -65,10 +66,10 @@
 --text-on-inverse:var(--bone-400);
 --text-on-inverse-strong:#ffffff;
 --text-on-accent:var(--forest-900);
---text-accent:var(--gold-700);
+--text-accent:var(--gold-800);
 --text-accent-on-inverse:var(--gold-500);
 --text-link:var(--forest-700);
---text-link-hover:var(--gold-700);
+--text-link-hover:var(--gold-800);
 
 /* ---- Semantic: lines ---- */
 --rule-hairline:rgba(58,57,55,.18);
@@ -188,7 +189,7 @@
 --shadow-none:none;
 --shadow-hairline:0 0 0 1px rgba(58,57,55,.10);
 --shadow-lift:0 1px 2px rgba(38,37,31,.05),0 8px 24px rgba(38,37,31,.06);
---shadow-overlay:0 24px 64px rgba(1,37,31,.18);
+--shadow-overlay:0 24px 64px rgba(0,0,0,.22);
 --overlay-scrim:rgba(1,37,31,.62);
 --blur-scrim:blur(6px);
 --protect-bottom:linear-gradient(to top,rgba(1,37,31,.78) 0%,rgba(1,37,31,.42) 42%,rgba(1,37,31,0) 100%);

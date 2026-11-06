@@ -398,7 +398,16 @@
     } catch (e) {}
   };
 
-  var showBanner = function (show) { if (banner) banner.hidden = !show; };
+  // Publish the banner's height so the layout can keep clear of it (see .cookie-banner in style.css).
+  var syncBannerSpace = function () {
+    var h = banner && !banner.hidden ? banner.offsetHeight : 0;
+    document.documentElement.style.setProperty('--cookie-banner-h', h + 'px');
+  };
+  var showBanner = function (show) {
+    if (banner) banner.hidden = !show;
+    syncBannerSpace();
+  };
+  window.addEventListener('resize', syncBannerSpace);
   var showPanel = function (show) { if (panel) panel.hidden = !show; };
 
   var openPanel = function (currentAnalyticsConsent) {

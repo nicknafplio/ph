@@ -141,7 +141,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
   .site-nav__link:hover{color:#fff}
   .site-nav__link:hover::before{opacity:1}
   .site-nav__link:hover::after{transform:scaleX(1)}
-  .site-nav.is-scrolled .site-nav__link:hover{color:var(--gold-700)}
+  .site-nav.is-scrolled .site-nav__link:hover{color:var(--text-link-hover)}
   .site-nav__inner .btn--outline:hover{color:var(--gold-500);border-color:var(--gold-500)}
   .site-nav.is-scrolled .site-nav__inner .btn--outline:hover{color:var(--text-accent);border-color:var(--rule-accent)}
   .site-nav__inner .btn--text:hover{color:var(--gold-500)}
@@ -241,9 +241,24 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 
 /* ================= Cookie banner + panel ================= */
 .cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:1500;background:var(--surface-inverse-deep);border-top:1px solid var(--rule-on-inverse);padding:28px 56px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
-@media (max-width:720px){.cookie-banner{padding:24px}}
 .cookie-banner p{margin:0;font:var(--type-body-sm);color:var(--text-on-inverse);max-width:52ch}
 .cookie-banner__actions{display:flex;gap:16px;flex-wrap:wrap}
+
+/* Phones: a compact sheet. Reject and Accept sit side by side at equal weight (same
+   style, same size), "Manage preferences" is a quiet link beneath. main.js publishes the
+   banner's height as --cookie-banner-h so the hero reserves that space and its call to
+   action is never covered; the hero eases back when the choice is made. */
+@media (max-width:720px){
+  .cookie-banner{flex-direction:column;align-items:stretch;flex-wrap:nowrap;gap:14px;padding:18px 20px 20px}
+  .cookie-banner p{max-width:none;font-size:0.9375rem;line-height:1.5}
+  .cookie-banner__actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .cookie-banner__actions .btn{min-height:44px;padding:8px 6px;letter-spacing:0.08em;white-space:normal;text-align:center}
+  .cookie-banner__actions [data-cookie-manage]{grid-row:2;grid-column:1 / -1;justify-self:center;text-transform:none;letter-spacing:0.02em;font-size:0.9375rem;font-weight:var(--weight-regular);border-bottom:1px solid var(--rule-on-inverse);border-radius:0;padding:8px 2px;min-height:44px}
+  .hero{padding-top:88px;padding-bottom:max(88px,var(--cookie-banner-h,0px));transition:padding-bottom var(--duration-slow) var(--ease-quiet)}
+  .cookie-panel{padding:28px 24px}
+}
+/* Touch: every small button gets a 44px target, wherever it sits (banner, panel, nav Menu). */
+@media (pointer:coarse){.btn--sm{min-height:44px}}
 
 .cookie-overlay{position:fixed;inset:0;z-index:1600;background:var(--overlay-scrim);backdrop-filter:var(--blur-scrim);-webkit-backdrop-filter:var(--blur-scrim);display:flex;align-items:center;justify-content:center;padding:24px}
 .cookie-overlay[hidden]{display:none}
