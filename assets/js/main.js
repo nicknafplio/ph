@@ -439,8 +439,8 @@
   var cookieSettingsLinks = document.querySelectorAll('[data-cookie-settings]');
 
   // gtag.js itself is loaded unconditionally from <head>, in denied-by-default Consent
-  // Mode, so Google can detect the tag. This banner only ever flips that consent state,
-  // it never loads or removes the script - so the _ga cookies still depend on the choice
+  // Mode, so Google can detect the tag. This banner only ever flips that consent state:
+  // it never loads or removes the script, so the _ga cookies still depend on the choice
   // made here.
   var updateAnalyticsConsent = function (granted) {
     if (window.gtag) {

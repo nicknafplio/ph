@@ -1,7 +1,7 @@
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;scroll-behavior:smooth}
 /* The nav is fixed at 88px, so an anchor target landing at y=0 sits underneath it. */
-section[id]{scroll-margin-top:112px}
+section[id]{scroll-margin-top:88px} /* the fixed nav's height, so no strip of the previous section shows under it */
 body{margin:0;background:var(--surface-page);color:var(--text-body);font:var(--type-body);text-wrap:pretty;font-family:var(--font-body)}
 h1,h2,h3,h4{margin:0;font-family:var(--font-display);font-weight:var(--weight-light);color:var(--text-display);letter-spacing:var(--tracking-display);text-wrap:balance}
 p{margin:0 0 1em}
