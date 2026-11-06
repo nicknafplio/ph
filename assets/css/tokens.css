@@ -90,6 +90,7 @@
 --status-positive:#3f6b52;
 --status-caution:#9d7c40;
 --status-critical:#8a3f38;
+--status-critical-on-inverse:#f4bdb4; /* error text and rules on forest grounds */
 --status-neutral:var(--ink-500);
 
 /* ---- Type families ---- */

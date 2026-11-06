@@ -171,7 +171,8 @@
     var raf = null;
     var autoplayTimeout = null;
     var slideRaf = null;
-    var autoplayPaused = false;
+    var autoplayPaused = false;   // transient: hover or focus inside the section
+    var userPaused = false;       // deliberate: the Pause button, or a reduced-motion preference
     var AUTOPLAY_MS = 5000;
     var SLIDE_MS = 620;
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -194,7 +195,7 @@
     // WCAG 2.2.2 requires a pause mechanism for content that moves on its own.
     var resetAutoplay = function () {
       stopAutoplay();
-      if (autoplayPaused || document.hidden || count < 2) return;
+      if (autoplayPaused || userPaused || document.hidden || count < 2) return;
       autoplayTimeout = setTimeout(function () {
         goToQuote(quoteIndex + 1);
       }, AUTOPLAY_MS);
@@ -269,6 +270,27 @@
       resetAutoplay();
     };
 
+    var toggleBtn = document.querySelector('[data-carousel-toggle]');
+    var setUserPaused = function (paused) {
+      userPaused = paused;
+      if (toggleBtn) {
+        toggleBtn.setAttribute('aria-label', paused ? 'Resume automatic rotation' : 'Pause automatic rotation');
+        var iconPause = toggleBtn.querySelector('[data-icon-pause]');
+        var iconPlay = toggleBtn.querySelector('[data-icon-play]');
+        if (iconPause) iconPause.hidden = paused;
+        if (iconPlay) iconPlay.hidden = !paused;
+      }
+      if (paused) stopAutoplay(); else resetAutoplay();
+    };
+    // Pressing Play is an explicit request, so it also overrides the pause-while-focused rule
+    // (the button itself holds focus inside the section after the click).
+    if (toggleBtn) toggleBtn.addEventListener('click', function () {
+      if (userPaused) autoplayPaused = false;
+      setUserPaused(!userPaused);
+    });
+    // People who ask their system for less motion should not get a carousel that moves on its own.
+    if (reduceMotion.matches) setUserPaused(true);
+
     var pauseAutoplay = function () { autoplayPaused = true; stopAutoplay(); };
     var resumeAutoplay = function () {
       if (region.matches(':hover') || region.contains(document.activeElement)) return;
@@ -317,61 +339,95 @@
   }
 
   /* ---------------- Contact form ---------------- */
-  // Validation only gates the submit; a valid form is left to post natively to Basin.
+  // Validate in the page, then send in the background so the visitor stays on the site and
+  // sees the thank-you panel. A failed send shows an error with the email address instead of
+  // re-posting: a reply the browser could not read may still have been delivered, and a second
+  // post would then send the message twice. Browsers without fetch get a normal post.
   var form = document.querySelector('[data-contact-form]');
   if (form) {
     var errorEl = document.querySelector('[data-form-error]');
+    var confirmEl = document.querySelector('[data-form-confirm]');
+    var submitBtn = form.querySelector('[data-form-submit]');
     var consentLabel = form.querySelector('.checkbox');
     var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    var fieldOk = function (name) {
-      var el = form.elements[name];
-      var v = el.value.trim();
-      return name === 'email' ? emailPattern.test(v) : v !== '';
+    var MESSAGES = {
+      name: 'Please enter your name.',
+      email: 'Please enter your email address.',
+      emailInvalid: 'That does not look like a valid email address. Please check it.',
+      message: 'Please write a short message.',
+      consent: 'Please confirm that you accept the Privacy Policy.'
     };
 
-    var clearInvalid = function (el) { el.classList.remove('is-invalid'); el.removeAttribute('aria-invalid'); };
+    var fieldError = function (name) { return form.querySelector('[data-field-error="' + name + '"]'); };
+
+    var setError = function (name, text) {
+      var el = form.elements[name];
+      var msg = fieldError(name);
+      if (el.type === 'checkbox') { if (consentLabel) consentLabel.classList.toggle('is-invalid', !!text); }
+      else el.classList.toggle('is-invalid', !!text);
+      if (text) el.setAttribute('aria-invalid', 'true'); else el.removeAttribute('aria-invalid');
+      if (msg) { msg.textContent = text || ''; msg.hidden = !text; }
+    };
+
+    var problemFor = function (name) {
+      var el = form.elements[name];
+      if (name === 'consent') return el.checked ? '' : MESSAGES.consent;
+      var v = el.value.trim();
+      if (!v) return MESSAGES[name];
+      if (name === 'email' && !emailPattern.test(v)) return MESSAGES.emailInvalid;
+      return '';
+    };
 
     ['name', 'email', 'message'].forEach(function (n) {
-      form.elements[n].addEventListener('input', function () { clearInvalid(form.elements[n]); });
+      var el = form.elements[n];
+      // Clear an error as soon as the visitor starts fixing it; re-check email on leave.
+      el.addEventListener('input', function () { if (el.classList.contains('is-invalid')) setError(n, ''); });
     });
-    form.elements['consent'].addEventListener('change', function () {
-      if (consentLabel) consentLabel.classList.remove('is-invalid');
-    });
+    form.elements['consent'].addEventListener('change', function () { setError('consent', ''); });
+
+    var showThanks = function () {
+      form.hidden = true;
+      if (confirmEl) { confirmEl.hidden = false; confirmEl.focus(); }
+    };
 
     form.addEventListener('submit', function (e) {
       var firstBad = null;
-      var problems = [];
-
-      ['name', 'email', 'message'].forEach(function (n) {
-        var el = form.elements[n];
-        if (fieldOk(n)) { clearInvalid(el); return; }
-        el.classList.add('is-invalid');
-        el.setAttribute('aria-invalid', 'true');
-        if (!firstBad) firstBad = el;
-        problems.push(n === 'email' && el.value.trim() ? 'a valid email address' : 'your ' + n);
+      var bad = 0;
+      ['name', 'email', 'message', 'consent'].forEach(function (n) {
+        var text = problemFor(n);
+        setError(n, text);
+        if (text) { bad++; if (!firstBad) firstBad = form.elements[n]; }
       });
 
-      var consent = form.elements['consent'];
-      if (!consent.checked) {
-        if (consentLabel) consentLabel.classList.add('is-invalid');
-        if (!firstBad) firstBad = consent;
-        problems.push('confirmation that you accept the Privacy Policy');
-      } else if (consentLabel) {
-        consentLabel.classList.remove('is-invalid');
-      }
-
-      if (!problems.length) {
-        if (errorEl) errorEl.hidden = true;
+      if (bad) {
+        e.preventDefault();
+        if (errorEl) {
+          errorEl.textContent = bad === 1 ? 'Please check the highlighted field.' : 'Please check the highlighted fields.';
+          errorEl.hidden = false;
+        }
+        firstBad.focus();
         return;
       }
+      if (errorEl) errorEl.hidden = true;
 
+      // Valid. Send in the background where the browser supports it.
+      if (!window.fetch || !window.FormData) return;   // native post
       e.preventDefault();
-      if (errorEl) {
-        errorEl.textContent = 'Please provide ' + problems.join(', ').replace(/, ([^,]*)$/, ' and $1') + '.';
-        errorEl.hidden = false;
-      }
-      firstBad.focus();
+      var label = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending\u2026'; }
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+        .then(function (res) {
+          if (!res.ok) throw new Error('send failed');
+          showThanks();
+        })
+        .catch(function () {
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = label; }
+          if (errorEl) {
+            errorEl.innerHTML = 'Sorry, your message could not be sent. Please try again, or email <a href="mailto:talkto@pigeonhilladvisory.co.uk" class="mail-link">talkto@pigeonhilladvisory.co.uk</a>.';
+            errorEl.hidden = false;
+          }
+        });
     });
   }
 

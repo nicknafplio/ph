@@ -45,9 +45,9 @@
 
 .btn--hero{background:transparent;color:var(--text-on-inverse-strong);border:2px solid var(--gold-500);border-radius:5px;transition-duration:var(--duration-fade),var(--duration-fade),var(--duration-fade),var(--duration-fast)}
 
-.carousel-arrow{background:var(--gold-500);border-color:var(--gold-500);color:#fff}
-.carousel-arrow:focus-visible{background:var(--forest-700);border-color:var(--forest-700)}
-.carousel-arrow span{color:#fff}
+.carousel-arrow{width:44px;height:44px;min-height:44px;padding:0;background:transparent;border-color:var(--forest-700);color:var(--forest-700);font-size:1.125rem;letter-spacing:0}
+.carousel-arrow:focus-visible{background:var(--forest-700);border-color:var(--forest-700);color:#fff}
+.carousel-arrow__icon[hidden]{display:none}
 
 @media (hover:hover){
   .btn--solid:hover{background:var(--forest-800)}
@@ -55,7 +55,7 @@
   .btn--outline:hover{color:var(--text-accent);border-color:var(--rule-accent)}
   .btn--outline.btn--dark:hover{color:var(--gold-500);border-color:var(--gold-500)}
   .btn--text:hover{color:var(--text-link-hover)}
-  .carousel-arrow:hover{background:var(--forest-700);border-color:var(--forest-700)}
+  .carousel-arrow:hover{background:var(--forest-700);border-color:var(--forest-700);color:#fff}
   .btn--hero:hover{background:var(--gold-500);color:var(--text-on-accent);border-color:var(--gold-500)}
 }
 
@@ -73,9 +73,9 @@
 .field__control.is-invalid{border-bottom-color:var(--status-critical);box-shadow:0 1px 0 0 var(--status-critical)}
 textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 
-.checkbox{display:flex;gap:var(--space-3);align-items:flex-start;cursor:pointer}
+.checkbox{display:flex;gap:var(--space-3);align-items:flex-start;cursor:pointer;min-height:44px;padding:8px 0}
 .checkbox input{position:absolute;opacity:0;width:1px;height:1px}
-.checkbox__box{width:16px;height:16px;flex:0 0 16px;margin-top:4px;border:1px solid var(--border-field);background:transparent;border-radius:var(--radius-hairline);display:grid;place-items:center;transition:border-color var(--duration-fast) var(--ease-quiet),background-color var(--duration-fast) var(--ease-quiet)}
+.checkbox__box{width:22px;height:22px;flex:0 0 22px;margin-top:2px;border:1px solid var(--border-field);background:transparent;border-radius:var(--radius-hairline);display:grid;place-items:center;transition:border-color var(--duration-fast) var(--ease-quiet),background-color var(--duration-fast) var(--ease-quiet)}
 .checkbox--dark .checkbox__box{border-color:var(--rule-on-inverse)}
 .checkbox input:checked + .checkbox__box{border-color:var(--gold-500);background:var(--gold-500)}
 .checkbox__tick{width:8px;height:4px;border-left:1.5px solid var(--forest-900);border-bottom:1.5px solid var(--forest-900);transform:rotate(-45deg) translate(1px,-1px) scale(.5);opacity:0;transition:opacity var(--duration-fast) var(--ease-quiet),transform var(--duration-fast) var(--ease-quiet)}
@@ -85,8 +85,9 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .checkbox input:focus-visible + .checkbox__box{outline:2px solid var(--focus-ring);outline-offset:3px}
 .checkbox__link{color:white;text-decoration:underline}
 .checkbox.is-invalid .checkbox__box{border-color:var(--status-critical)}
+.checkbox--dark.is-invalid .checkbox__box{border-color:var(--status-critical-on-inverse)}
 
-.form-error{font:var(--type-body-sm);color:#f0b8b0}
+.form-error{font:var(--type-body-sm);color:var(--status-critical-on-inverse)}
 
 /* ================= Definition list (expertise) ================= */
 .deflist{margin:0;border-top:1px solid var(--rule-hairline)}
@@ -212,7 +213,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 
 /* 24px buttons carry an 8px dot: the target meets WCAG 2.5.8 without the dots growing. */
 .carousel-dots{display:flex;gap:0;justify-content:center;margin-top:20px}
-.carousel-dots button{width:24px;height:24px;border:0;padding:0;margin:0;cursor:pointer;background:transparent;border-radius:50%;display:grid;place-items:center}
+.carousel-dots button{width:44px;height:44px;border:0;padding:0;margin:0;cursor:pointer;background:transparent;border-radius:50%;display:grid;place-items:center}
 .carousel-dots button::before{content:"";width:8px;height:8px;border-radius:50%;background:rgba(58,57,55,.22);transition:background-color var(--duration-base) var(--ease-quiet),transform var(--duration-base) var(--ease-quiet)}
 .carousel-dots button.is-active::before{background:var(--gold-500);transform:scale(1.25)}
 .carousel-dots button:focus-visible{outline:2px solid var(--focus-ring);outline-offset:-2px}
@@ -230,9 +231,9 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .site-footer__inner{max-width:var(--container-max);margin:0 auto}
 .site-footer__top{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;padding-bottom:40px;border-bottom:1px solid var(--rule-on-inverse)}
 .site-footer__brand img{height:54px;width:auto;margin-bottom:18px}
-.site-footer__brand a{display:block;font:var(--type-body-sm);color:var(--text-on-inverse);text-decoration:none;border-bottom:0}
-.site-footer__links{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start;font:var(--type-body-sm)}
-.site-footer__links a,.site-footer__links button{color:var(--text-on-inverse);text-decoration:none;border-bottom:0;background:none;border:0;padding:0;cursor:pointer;font:var(--type-body-sm);transition:color var(--duration-fast) var(--ease-quiet)}
+.site-footer__brand a{display:flex;align-items:center;min-height:44px;font:var(--type-body-sm);color:var(--text-on-inverse);text-decoration:none;border-bottom:0}
+.site-footer__links{display:flex;flex-wrap:wrap;gap:0 32px;align-items:flex-start;font:var(--type-body-sm)}
+.site-footer__links a,.site-footer__links button{display:inline-flex;align-items:center;min-height:44px;color:var(--text-on-inverse);text-decoration:none;border-bottom:0;background:none;border:0;padding:0;cursor:pointer;font:var(--type-body-sm);transition:color var(--duration-fast) var(--ease-quiet)}
 .site-footer__links a.is-current{color:var(--gold-500)}
 @media (hover:hover){
   .site-footer__links a:hover,.site-footer__links button:hover{color:var(--gold-500)}
@@ -309,3 +310,12 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
    (Newsreader is a variable font, so 430 is a real weight). Declared last so it wins over the font shorthands above. */
 .section--forest p,.section--deep p,.site-footer p,.cookie-banner p{font-weight:var(--weight-on-inverse);letter-spacing:var(--tracking-on-inverse);line-height:var(--leading-on-inverse)}
 .site-nav:not(.is-scrolled) .site-nav__link{font-weight:var(--weight-on-inverse)}
+
+/* ================= Contact form: guidance and errors ================= */
+.form-note,.form-assurance{margin:0;font:var(--type-body-sm);color:var(--text-on-inverse)}
+.form-assurance{max-width:var(--measure-narrow);margin-top:-4px}
+.contact-form .btn{margin-top:8px}
+.field__error{margin:8px 0 0;font:var(--type-body-sm);color:var(--status-critical-on-inverse)}
+.field__control--dark.is-invalid{border-bottom-color:var(--status-critical-on-inverse);box-shadow:0 1px 0 0 var(--status-critical-on-inverse)}
+.contact-form .btn[disabled]{opacity:.7;cursor:progress}
+.checkbox + .field__error{margin-top:-14px}
