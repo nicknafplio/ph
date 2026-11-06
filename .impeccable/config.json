@@ -11,6 +11,24 @@
         ],
         "createdAt": "2026-11-06T17:03:45.995Z",
         "reason": "user confirmed: cream/bone page background is the intentional brand colour"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "privacy-policy.html"
+        ],
+        "createdAt": "2026-11-06T17:54:20.158Z",
+        "reason": "user confirmed: cream/bone page background is the intentional brand colour (same token as index.html)"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "cookie-policy.html"
+        ],
+        "createdAt": "2026-11-06T17:54:20.171Z",
+        "reason": "user confirmed: cream/bone page background is the intentional brand colour (same token as index.html)"
       }
     ]
   }

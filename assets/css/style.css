@@ -38,7 +38,7 @@
 .btn--solid.btn--dark{background:var(--gold-500);color:var(--text-on-accent)}
 
 .btn--outline{color:var(--text-body);border-color:var(--rule-strong)}
-.btn--outline.btn--dark{color:var(--text-on-inverse);border-color:var(--rule-on-inverse)}
+.btn--outline.btn--dark{color:var(--text-on-inverse);border-color:var(--border-control-on-inverse)}
 
 .btn--text{color:var(--text-body);padding:4px 0}
 .btn--text.btn--dark{color:var(--text-on-inverse)}
@@ -66,7 +66,7 @@
 .field:focus-within .field__label{color:var(--text-accent)}
 .field:focus-within .field__label--dark{color:var(--gold-500)}
 .field__control{width:100%;box-sizing:border-box;font:var(--type-body);color:var(--text-body);background:transparent;border:0;border-bottom:1px solid var(--border-field);border-radius:0;padding:10px 0;outline:none;transition:border-color var(--duration-fast) var(--ease-quiet),box-shadow var(--duration-fast) var(--ease-quiet);font-family:var(--font-body)}
-.field__control--dark{color:var(--text-on-inverse-strong);border-bottom-color:var(--rule-on-inverse)}
+.field__control--dark{color:var(--text-on-inverse-strong);border-bottom-color:var(--border-control-on-inverse)}
 /* box-shadow rather than border-width: doubles the rule's weight without reflowing the field. */
 .field__control:focus{border-bottom-color:var(--border-field-focus);box-shadow:0 1px 0 0 var(--border-field-focus)}
 .field__control--dark:focus{border-bottom-color:var(--gold-500);box-shadow:0 1px 0 0 var(--gold-500)}
@@ -76,7 +76,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .checkbox{display:flex;gap:var(--space-3);align-items:flex-start;cursor:pointer;min-height:44px;padding:8px 0}
 .checkbox input{position:absolute;opacity:0;width:1px;height:1px}
 .checkbox__box{width:22px;height:22px;flex:0 0 22px;margin-top:2px;border:1px solid var(--border-field);background:transparent;border-radius:var(--radius-hairline);display:grid;place-items:center;transition:border-color var(--duration-fast) var(--ease-quiet),background-color var(--duration-fast) var(--ease-quiet)}
-.checkbox--dark .checkbox__box{border-color:var(--rule-on-inverse)}
+.checkbox--dark .checkbox__box{border-color:var(--border-control-on-inverse)}
 .checkbox input:checked + .checkbox__box{border-color:var(--gold-500);background:var(--gold-500)}
 .checkbox__tick{width:8px;height:4px;border-left:1.5px solid var(--forest-900);border-bottom:1.5px solid var(--forest-900);transform:rotate(-45deg) translate(1px,-1px) scale(.5);opacity:0;transition:opacity var(--duration-fast) var(--ease-quiet),transform var(--duration-fast) var(--ease-quiet)}
 .checkbox input:checked + .checkbox__box .checkbox__tick{opacity:1;transform:rotate(-45deg) translate(1px,-1px) scale(1)}
@@ -132,7 +132,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 
 /* Nav buttons (Contact, Menu) sit on a transparent/forest ground until scrolled,
    then on a bone ground - recolour them the same way the plain nav links are. */
-.site-nav__inner .btn--outline{color:var(--text-on-inverse);border-color:var(--rule-on-inverse);transition-duration:var(--duration-fade),var(--duration-fade),var(--duration-fade),var(--duration-fast)}
+.site-nav__inner .btn--outline{color:var(--text-on-inverse);border-color:var(--border-control-on-inverse);transition-duration:var(--duration-fade),var(--duration-fade),var(--duration-fade),var(--duration-fast)}
 .site-nav.is-scrolled .site-nav__inner .btn--outline{color:var(--text-body);border-color:var(--rule-strong)}
 
 .site-nav__inner .btn--text{color:var(--text-on-inverse)}
@@ -155,7 +155,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
   .site-nav__menu-btn{display:inline-flex}
 }
 
-.mobile-menu{position:fixed;inset:0;z-index:1200;background:rgba(1,37,31,.8);display:flex;flex-direction:column;opacity:0;transition:opacity var(--duration-fade) var(--ease-quiet)}
+.mobile-menu{position:fixed;inset:0;z-index:1200;background:var(--surface-inverse-deep);display:flex;flex-direction:column;opacity:0;transition:opacity var(--duration-fade) var(--ease-quiet)}
 .mobile-menu.is-open{opacity:1}
 .mobile-menu[hidden]{display:none}
 .mobile-menu__top{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:88px;flex:0 0 auto}
@@ -176,9 +176,9 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .hero__aside{flex:1 1 320px;min-width:0;padding-top:8px}
 .hero__lead{font:var(--type-body-lg);color:var(--text-on-inverse-strong);max-width:var(--measure-narrow);margin:0 0 32px}
 
-.hero-lines{margin:0}
+.hero-lines{margin:0;width:fit-content;max-width:100%}
 .hero-lines__line{display:block;border-bottom:1px solid var(--rule-on-inverse);padding:2px 0 0.18em}
-.hero-lines__line span{display:inline-block;white-space:nowrap;font-family:var(--font-display);font-weight:var(--weight-light);font-size:clamp(2.125rem,5.6vw,5rem);line-height:var(--leading-display);letter-spacing:var(--tracking-display);color:var(--text-on-inverse-strong)}
+.hero-lines__line span{display:inline-block;white-space:nowrap;font-family:var(--font-display);font-weight:var(--weight-light);font-size:clamp(2.125rem,5.6vw,4.75rem);line-height:var(--leading-display);letter-spacing:var(--tracking-display);color:var(--text-on-inverse-strong)}
 .hero-lines__line--2{margin-left:clamp(18px,4.2vw,58px)}
 
 /* ================= About ================= */
@@ -196,16 +196,10 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .row--top{align-items:flex-start}
 .about-bio{padding-top:4px}
 .approach-aside{padding-top:8px}
-.approach-cities{border-top:1px solid var(--rule-on-inverse);padding-top:28px}
-.approach-cities__row{display:flex;flex-wrap:wrap;gap:0 28px;row-gap:22px}
-.approach-cities__row span{font:var(--type-heading-3)}
-/* Phones: a 2 x 2 grid without separators, so no dot is stranded at the end of a wrapped line. */
-@media (max-width:720px){
-  .approach-cities__row{display:grid;grid-template-columns:1fr 1fr;gap:18px 24px}
-  .approach-cities__dot{display:none}
-}
-.approach-cities__city{color:var(--text-on-inverse-strong)}
-.approach-cities__dot{color:var(--gold-500)}
+.approach-cities{border-top:1px solid var(--rule-on-inverse)}
+.approach-cities__row{display:block}
+/* The four cities are the section's centrepiece: a ruled list at display scale, like the Expertise list. */
+.approach-cities__city{display:block;padding:14px 0 12px;border-bottom:1px solid var(--rule-on-inverse);font:var(--weight-light) clamp(1.75rem,1.2rem + 2vw,2.75rem)/1.15 var(--font-display);letter-spacing:var(--tracking-display);color:var(--text-on-inverse-strong)}
 .approach-cities__note{font:var(--type-body-sm);color:var(--text-on-inverse);margin:22px 0 0;max-width:32ch}
 
 /* ================= Perspectives / carousel ================= */
@@ -217,7 +211,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .carousel{display:flex;gap:24px;overflow-x:auto;scroll-behavior:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none}
 .carousel::-webkit-scrollbar{display:none}
 .carousel__card{flex:0 0 calc((100% - 24px) / 2);scroll-snap-align:start;border:1px solid var(--rule-hairline);border-radius:var(--radius-sm);padding:40px 36px;background:var(--surface-card)}
-.carousel__quote{margin:0 0 24px;font:var(--type-heading-3);font-weight:var(--weight-regular);color:var(--text-display);line-height:var(--leading-heading)}
+.carousel__quote{margin:0 0 24px;font:var(--type-heading-3);font-weight:var(--weight-regular);color:var(--text-display);line-height:var(--leading-tight)}
 .carousel__attribution{font:var(--type-caption);text-transform:uppercase;letter-spacing:var(--tracking-label);color:var(--text-secondary)}
 
 /* 24px buttons carry an 8px dot: the target meets WCAG 2.5.8 without the dots growing. */
@@ -235,8 +229,8 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .contact-form{display:flex;flex-direction:column;gap:24px}
 
 /* ================= Footer ================= */
-.site-footer{background:var(--surface-inverse-deep);border-top:1px solid var(--rule-on-inverse);padding:64px 56px 32px}
-@media (max-width:720px){.site-footer{padding:48px 24px 32px}}
+.site-footer{background:var(--surface-inverse-deep);border-top:1px solid var(--rule-on-inverse);padding:64px 56px calc(32px + var(--cookie-banner-h,0px))}
+@media (max-width:720px){.site-footer{padding:48px 24px calc(32px + var(--cookie-banner-h,0px))}}
 .site-footer__inner{max-width:var(--container-max);margin:0 auto}
 .site-footer__top{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;padding-bottom:40px;border-bottom:1px solid var(--rule-on-inverse)}
 .site-footer__brand img{height:54px;width:auto;margin-bottom:18px}

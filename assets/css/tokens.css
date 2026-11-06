@@ -73,10 +73,11 @@
 
 /* ---- Semantic: lines ---- */
 --rule-hairline:rgba(58,57,55,.18);
---rule-strong:rgba(58,57,55,.38);
---rule-on-inverse:rgba(237,228,216,.28);
+--rule-strong:rgba(58,57,55,.62); /* outline-button borders on light grounds: 3.6:1 on bone */
+--rule-on-inverse:rgba(237,228,216,.28); /* decorative hairlines only */
+--border-control-on-inverse:rgba(237,228,216,.58); /* control boundaries on forest: 3.6:1 on forest-700, 4.9:1 on forest-900 */
 --rule-accent:var(--gold-500);
---border-field:rgba(58,57,55,.28);
+--border-field:rgba(58,57,55,.62); /* field and checkbox boundaries on light grounds: 3.6:1 on bone, 3.8:1 on white */
 --border-field-focus:var(--forest-700);
 
 /* ---- Semantic: states ---- */

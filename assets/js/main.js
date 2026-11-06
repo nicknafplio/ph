@@ -50,6 +50,8 @@
       if (hidden !== navHidden) {
         navHidden = hidden;
         nav.classList.toggle('is-hidden', navHidden);
+        // Invisible links must not stay in the tab order or the accessibility tree.
+        if (navHidden) nav.setAttribute('inert', ''); else nav.removeAttribute('inert');
       }
     };
 
@@ -448,7 +450,11 @@
     }
   };
 
+  var hasChoice = false;   // a decision has been recorded (now, or on an earlier visit)
+  var lastOpener = null;   // the control that opened the preferences panel, so focus can return to it
+
   var saveConsent = function (analytics) {
+    hasChoice = true;
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ necessary: true, analytics: analytics, date: new Date().toISOString() }));
     } catch (e) {}
@@ -467,9 +473,27 @@
   var showPanel = function (show) { if (panel) panel.hidden = !show; };
 
   var openPanel = function (currentAnalyticsConsent) {
+    lastOpener = document.activeElement;
     if (analyticsToggle) analyticsToggle.checked = currentAnalyticsConsent;
     showBanner(false);
     showPanel(true);
+    // Move focus into the dialog so keyboard and screen-reader users land in it.
+    var card = panel ? panel.querySelector('.cookie-panel') : null;
+    if (card) { card.setAttribute('tabindex', '-1'); card.focus(); }
+  };
+
+  // Closing the panel without choosing must not lose the banner: it comes back, with focus on
+  // "Manage preferences". After a choice, focus returns to whatever opened the panel.
+  var closePanel = function () {
+    if (!panel || panel.hidden) return;
+    showPanel(false);
+    if (!hasChoice) {
+      showBanner(true);
+      var manage = banner ? banner.querySelector('[data-cookie-manage]') : null;
+      if (manage) manage.focus();
+    } else if (lastOpener && document.contains(lastOpener) && typeof lastOpener.focus === 'function') {
+      lastOpener.focus();
+    }
   };
 
   var consentAnalytics = false;
@@ -481,6 +505,7 @@
     var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
     if (saved && typeof saved.analytics === 'boolean') {
       consentAnalytics = saved.analytics;
+      hasChoice = true;
       updateAnalyticsConsent(consentAnalytics);
     } else {
       showBanner(true);
@@ -497,7 +522,7 @@
         updateAnalyticsConsent(true);
         consentAnalytics = true;
         showBanner(false);
-        showPanel(false);
+        closePanel();
       });
     });
 
@@ -507,7 +532,7 @@
         updateAnalyticsConsent(false);
         consentAnalytics = false;
         showBanner(false);
-        showPanel(false);
+        closePanel();
       });
     });
 
@@ -523,11 +548,20 @@
     });
 
     document.querySelectorAll('[data-cookie-close]').forEach(function (btn) {
-      btn.addEventListener('click', function () { showPanel(false); });
+      btn.addEventListener('click', closePanel);
     });
 
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && panel && !panel.hidden) showPanel(false);
+      if (!panel || panel.hidden) return;
+      if (e.key === 'Escape') { closePanel(); return; }
+      if (e.key !== 'Tab') return;
+      // Keep Tab inside the open dialog.
+      var items = Array.prototype.slice.call(panel.querySelectorAll('button, input:not([disabled]), a[href]'));
+      if (!items.length) return;
+      var first = items[0], last = items[items.length - 1];
+      var inside = panel.contains(document.activeElement);
+      if (e.shiftKey && (document.activeElement === first || !inside || document.activeElement === panel.querySelector('.cookie-panel'))) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && (document.activeElement === last || !inside)) { e.preventDefault(); first.focus(); }
     });
 
     document.querySelectorAll('[data-cookie-save]').forEach(function (btn) {
@@ -536,7 +570,7 @@
         saveConsent(analytics);
         updateAnalyticsConsent(analytics);
         consentAnalytics = analytics;
-        showPanel(false);
+        closePanel();
       });
     });
 
