@@ -26,8 +26,8 @@
 }
 
 /* ================= Buttons ================= */
-.btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-body);font-size:var(--size-caption);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);border-radius:var(--radius-sm);cursor:pointer;text-decoration:none;transition:color var(--duration-fast) var(--ease-quiet),background-color var(--duration-fast) var(--ease-quiet),border-color var(--duration-fast) var(--ease-quiet);white-space:nowrap;background:transparent;border:1px solid transparent}
-.btn--sm{padding:7px 18px;font-size:11px}
+.btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-size:var(--size-caption);font-weight:var(--weight-medium);text-transform:uppercase;letter-spacing:var(--tracking-label);border-radius:var(--radius-sm);cursor:pointer;text-decoration:none;transition:color var(--duration-fast) var(--ease-quiet),background-color var(--duration-fast) var(--ease-quiet),border-color var(--duration-fast) var(--ease-quiet);white-space:nowrap;background:transparent;border:1px solid transparent}
+.btn--sm{padding:9px 18px;font-size:var(--size-eyebrow)}
 .btn--md{padding:11px 26px}
 .btn--lg{padding:15px 38px;font-size:var(--size-body-sm)}
 .btn:disabled{opacity:.42;pointer-events:none}
@@ -43,7 +43,7 @@
 .btn--outline.btn--dark{color:var(--text-on-inverse);border-color:var(--rule-on-inverse)}
 .btn--outline.btn--dark:hover{color:var(--gold-500);border-color:var(--gold-500)}
 
-.btn--text{color:var(--text-body);padding:4px 0;letter-spacing:var(--tracking-eyebrow)}
+.btn--text{color:var(--text-body);padding:4px 0}
 .btn--text.btn--dark{color:var(--text-on-inverse)}
 .btn--text:hover{color:var(--text-link-hover)}
 
@@ -53,7 +53,7 @@
 
 /* ================= Forms ================= */
 .field{display:block}
-.field__label{display:block;font:var(--type-caption);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);color:var(--text-muted);margin-bottom:var(--space-2)}
+.field__label{display:block;font:var(--type-caption);text-transform:uppercase;letter-spacing:var(--tracking-label);color:var(--text-muted);margin-bottom:var(--space-2)}
 .field__label--dark{color:var(--text-on-inverse)}
 .field__control{width:100%;box-sizing:border-box;font:var(--type-body);color:var(--text-body);background:transparent;border:0;border-bottom:1px solid var(--border-field);border-radius:0;padding:10px 0;outline:none;transition:border-color var(--duration-fast) var(--ease-quiet);font-family:var(--font-body)}
 .field__control--dark{color:var(--text-on-inverse-strong);border-bottom-color:var(--rule-on-inverse)}
@@ -73,7 +73,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .checkbox--dark .checkbox__label{color:var(--text-on-inverse)}
 .checkbox input:focus-visible + .checkbox__box{outline:2px solid var(--focus-ring);outline-offset:3px}
 
-.form-error{font:var(--type-caption);color:#e3b3ac}
+.form-error{font:var(--type-body-sm);color:#f0b8b0}
 
 /* ================= Definition list (expertise) ================= */
 .deflist{margin:0;border-top:1px solid var(--rule-hairline)}
@@ -94,7 +94,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .site-nav__logo img.is-hidden-logo{position:absolute;opacity:0;pointer-events:none}
 
 .site-nav__links{display:flex;align-items:center;gap:40px}
-.site-nav__link{font:var(--type-body-sm);text-decoration:none;border-bottom:1px solid transparent;color:var(--text-on-inverse-strong)}
+.site-nav__link{font:var(--type-body-sm);letter-spacing:0.01em;text-decoration:none;border-bottom:1px solid transparent;color:var(--text-on-inverse-strong)}
 .site-nav.is-scrolled .site-nav__link{color:var(--text-body)}
 .site-nav__link:hover{color:var(--gold-700);border-bottom-color:var(--gold-500)}
 
@@ -135,7 +135,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 
 .hero-lines{margin:0}
 .hero-lines__line{border-bottom:1px solid var(--rule-on-inverse);padding:2px 0 0.18em}
-.hero-lines__line span{display:inline-block;white-space:nowrap;font-family:var(--font-display);font-weight:var(--weight-light);font-size:clamp(34px,5.6vw,80px);line-height:var(--leading-display);letter-spacing:var(--tracking-display);color:var(--text-on-inverse-strong)}
+.hero-lines__line span{display:inline-block;white-space:nowrap;font-family:var(--font-display);font-weight:var(--weight-light);font-size:clamp(2.125rem,5.6vw,5rem);line-height:var(--leading-display);letter-spacing:var(--tracking-display);color:var(--text-on-inverse-strong)}
 .hero-lines__line--2{margin-left:clamp(18px,4.2vw,58px)}
 
 /* ================= About ================= */
@@ -143,12 +143,12 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .about-body p{font:var(--type-body);color:var(--text-secondary);max-width:var(--measure-prose)}
 .about-portrait-wrap{flex:0 0 auto;padding:5px}
 .about-portrait{width:280px;max-width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:10px;filter:saturate(.94) sepia(.06)}
-.about-bio h2{font:var(--type-heading-2);font-size:40px;color:var(--text-display);margin:0 0 14px}
+.about-bio h2{font:var(--type-heading-1);color:var(--text-display);margin:0 0 14px}
 .about-bio p{font:var(--type-body);color:var(--text-secondary);max-width:var(--measure-prose);margin:0 0 18px}
 
 /* ================= Approach ================= */
 .approach-eyebrow{font:var(--type-caption);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);color:var(--gold-500);margin-bottom:20px}
-.approach-keywords{font:var(--type-caption);text-transform:uppercase;letter-spacing:0.16em;color:var(--gold-500);margin:32px 0 0;line-height:2.4}
+.approach-keywords{font:var(--type-body-sm);letter-spacing:0.04em;color:var(--gold-500);margin:32px 0 0;line-height:2}
 .approach-cities{border-top:1px solid var(--rule-on-inverse);padding-top:28px}
 .approach-cities__row{display:flex;flex-wrap:wrap;gap:0 28px;row-gap:22px}
 .approach-cities__row span{font:var(--type-heading-3)}
@@ -164,7 +164,7 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .carousel::-webkit-scrollbar{display:none}
 .carousel__card{flex:0 0 78%;max-width:440px;scroll-snap-align:start;border:1px solid var(--rule-hairline);border-radius:var(--radius-sm);padding:40px 36px;background:var(--surface-card)}
 .carousel__quote{margin:0 0 24px;font:var(--type-heading-3);font-weight:var(--weight-regular);color:var(--text-display);line-height:var(--leading-heading)}
-.carousel__attribution{font:var(--type-caption);text-transform:uppercase;letter-spacing:0.16em;color:var(--text-muted)}
+.carousel__attribution{font:var(--type-caption);text-transform:uppercase;letter-spacing:var(--tracking-label);color:var(--text-secondary)}
 
 .carousel-dots{display:flex;gap:10px;justify-content:center;margin-top:28px}
 .carousel-dots button{width:8px;height:8px;border-radius:50%;border:0;padding:0;cursor:pointer;background:rgba(58,57,55,.22);transition:background-color var(--duration-base) var(--ease-quiet)}
@@ -184,10 +184,10 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .site-footer__brand img{height:54px;width:auto;margin-bottom:18px}
 .site-footer__brand a{display:block;font:var(--type-body-sm);color:var(--text-on-inverse);text-decoration:none;border-bottom:0}
 .site-footer__links{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start;font:var(--type-body-sm)}
-.site-footer__links a,.site-footer__links button{color:var(--text-on-inverse);text-decoration:none;border-bottom:0;background:none;border:0;padding:0;cursor:pointer;font:var(--type-body-sm);font-family:var(--font-body)}
+.site-footer__links a,.site-footer__links button{color:var(--text-on-inverse);text-decoration:none;border-bottom:0;background:none;border:0;padding:0;cursor:pointer;font:var(--type-body-sm)}
 .site-footer__links a:hover,.site-footer__links button:hover{color:var(--gold-500)}
 .site-footer__links a.is-current{color:var(--gold-500)}
-.site-footer__copy{padding-top:24px;font:var(--type-caption);text-transform:uppercase;letter-spacing:0.16em;color:var(--text-muted)}
+.site-footer__copy{padding-top:24px;font:var(--type-body-sm);font-size:0.875rem;letter-spacing:0.03em;color:var(--text-muted-on-inverse)}
 
 /* ================= Cookie banner + panel ================= */
 .cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:1500;background:var(--surface-inverse-deep);border-top:1px solid var(--rule-on-inverse);padding:28px 56px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
@@ -224,3 +224,19 @@ textarea.field__control{resize:vertical;line-height:var(--leading-body)}
 .legal table{width:100%;border-collapse:collapse;margin:0 0 20px}
 .legal th,.legal td{text-align:left;font:var(--type-body-sm);color:var(--text-secondary);padding:10px 12px;border-bottom:1px solid var(--rule-hairline)}
 .legal th{color:var(--text-display);font-weight:var(--weight-medium)}
+
+/* ================= Type roles used in markup (replaces inline styles) ================= */
+.h-display{font:var(--type-display-3);color:var(--text-display);margin:0}
+.h-display--on-inverse{color:#fff}
+.h-display--areas{margin-bottom:48px;max-width:18ch}
+.h-display--approach{margin-bottom:28px;max-width:16ch}
+.h-display--proof{max-width:16ch}
+.h-display--contact{margin-bottom:24px;max-width:16ch}
+.lead-on-inverse{font:var(--type-body);color:var(--text-on-inverse);max-width:var(--measure-prose);margin:0 0 20px}
+.lead-contact{font:var(--type-body-lg);color:var(--text-on-inverse-strong);max-width:var(--measure-narrow);margin:0 0 28px}
+.mail-link{font:var(--type-body);color:var(--gold-500);text-decoration:none;border-bottom:1px solid var(--gold-500)}
+
+/* Light text on dark grounds reads thinner: nudge weight, tracking and leading up
+   (Newsreader is a variable font, so 430 is a real weight). Declared last so it wins over the font shorthands above. */
+.section--forest p,.section--deep p,.site-footer p,.cookie-banner p{font-weight:var(--weight-on-inverse);letter-spacing:var(--tracking-on-inverse);line-height:var(--leading-on-inverse)}
+.site-nav:not(.is-scrolled) .site-nav__link{font-weight:var(--weight-on-inverse)}

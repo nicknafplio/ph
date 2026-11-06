@@ -1,13 +1,9 @@
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Light.ttf") format("truetype");font-weight:300;font-style:normal;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-LightItalic.ttf") format("truetype");font-weight:300;font-style:italic;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Italic.ttf") format("truetype");font-weight:400;font-style:italic;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Medium.ttf") format("truetype");font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-MediumItalic.ttf") format("truetype");font-weight:500;font-style:italic;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-SemiBold.ttf") format("truetype");font-weight:600;font-style:normal;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-SemiBoldItalic.ttf") format("truetype");font-weight:600;font-style:italic;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Bold.ttf") format("truetype");font-weight:700;font-style:normal;font-display:swap}
-@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-BoldItalic.ttf") format("truetype");font-weight:700;font-style:italic;font-display:swap}
+/* Display: Cormorant Garamond, only the three weights the site uses. Subset to Latin, woff2. */
+@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Light.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("../fonts/CormorantGaramond-Medium.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+/* Text and UI: Newsreader, one variable file (weight 200-800), Latin subset. SIL OFL, see Newsreader-OFL.txt. */
+@font-face{font-family:"Newsreader";src:url("../fonts/Newsreader-latin-wght.woff2") format("woff2");font-weight:200 800;font-style:normal;font-display:swap}
 
 :root{
 /* ---- Brand core ---- */
@@ -37,7 +33,7 @@
 --ink-900:#26251f;
 --ink-800:#3a3937;
 --ink-600:#5c5a56;
---ink-500:#7b7873;
+--ink-500:#6a6761;
 --ink-400:#9d9a93;
 --ink-300:#c2beb6;
 
@@ -65,6 +61,7 @@
 --text-body:var(--ink-800);
 --text-secondary:var(--ink-600);
 --text-muted:var(--ink-500);
+--text-muted-on-inverse:var(--ink-300);
 --text-on-inverse:var(--bone-400);
 --text-on-inverse-strong:#ffffff;
 --text-on-accent:var(--forest-900);
@@ -96,8 +93,8 @@
 
 /* ---- Type families ---- */
 --font-display:"Cormorant Garamond","Cormorant",Garamond,"Times New Roman",serif;
---font-body:"Times New Roman",Georgia,serif;
---font-ui:"Times New Roman",Times,serif;
+--font-body:"Newsreader",Georgia,"Times New Roman",serif;
+--font-ui:"Newsreader",Georgia,"Times New Roman",serif;
 --font-mono:"Courier New",Courier,monospace;
 
 /* ---- Weights ---- */
@@ -108,32 +105,36 @@
 --weight-bold:700;
 
 /* ---- Display scale ---- */
---size-display-1:104px;
---size-display-2:76px;
---size-display-3:56px;
---size-heading-1:40px;
---size-heading-2:30px;
---size-heading-3:24px;
+--size-display-1:6rem;
+--size-display-2:4.75rem;
+--size-display-3:clamp(2.125rem,1.25rem + 3.2vw,3.5rem);
+--size-heading-1:clamp(1.875rem,1.4rem + 1.6vw,2.5rem);
+--size-heading-2:clamp(1.625rem,1.3rem + 1vw,1.875rem);
+--size-heading-3:1.5rem;
 
 /* ---- Body scale ---- */
---size-body-lg:20px;
---size-body:17px;
---size-body-sm:15px;
---size-caption:13px;
---size-eyebrow:12px;
+--size-body-lg:1.3125rem;
+--size-body:1.125rem;
+--size-body-sm:1rem;
+--size-caption:0.8125rem;
+--size-eyebrow:0.75rem;
 
 /* ---- Line heights ---- */
 --leading-display:1.06;
 --leading-heading:1.18;
---leading-body:1.62;
+--leading-body:1.6;
 --leading-tight:1.35;
 
 /* ---- Tracking ---- */
 --tracking-display:-0.012em;
 --tracking-heading:0em;
---tracking-body:0.004em;
---tracking-eyebrow:0.28em;
+--tracking-body:0.003em;
+--tracking-eyebrow:0.2em;
 --tracking-wordmark:0.42em;
+--tracking-label:0.14em;
+--tracking-on-inverse:0.012em;
+--weight-on-inverse:430;
+--leading-on-inverse:1.7;
 
 /* ---- Composite type roles ---- */
 --type-display-1:var(--weight-light) var(--size-display-1)/var(--leading-display) var(--font-display);
@@ -145,7 +146,7 @@
 --type-body-lg:var(--weight-regular) var(--size-body-lg)/var(--leading-body) var(--font-body);
 --type-body:var(--weight-regular) var(--size-body)/var(--leading-body) var(--font-body);
 --type-body-sm:var(--weight-regular) var(--size-body-sm)/var(--leading-body) var(--font-body);
---type-caption:var(--weight-regular) var(--size-caption)/var(--leading-tight) var(--font-body);
+--type-caption:var(--weight-medium) var(--size-caption)/var(--leading-tight) var(--font-body);
 
 /* ---- Spacing ---- */
 --space-0:0px;
